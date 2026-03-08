@@ -63,7 +63,7 @@ export function Projects({ projects }: { projects: any[] }) {
             Selected Engineering Works
           </h3>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            A showcase of distributed systems, full-stack applications, and technical architectures I've designed and delivered.
+            A showcase of distributed systems, full-stack applications, and technical architectures I&apos;ve designed and delivered.
           </p>
         </div>
 

@@ -36,7 +36,7 @@ export function Testimonials({ testimonials }: { testimonials: any[] }) {
                             Loved by Coworkers
                         </h3>
                         <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
-                            Recommendations and testimonials from engineers, founders, and managers I've worked closely with.
+                            Recommendations and testimonials from engineers, founders, and managers I&apos;ve worked closely with.
                         </p>
                     </div>
 
@@ -70,7 +70,7 @@ export function Testimonials({ testimonials }: { testimonials: any[] }) {
                             className="snap-start shrink-0 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col bg-card/50 dark:bg-card/30 border border-border/40 backdrop-blur-md rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-md transition-all duration-300 hover:border-primary/30 group"
                         >
                             <Quote className="w-8 h-8 text-primary/20 mb-6 group-hover:text-primary transition-colors shrink-0" />
-                            <p className="text-muted-foreground text-sm leading-relaxed mb-8 italic flex-grow">"{t.content}"</p>
+                            <p className="text-muted-foreground text-sm leading-relaxed mb-8 italic flex-grow">&ldquo;{t.content}&rdquo;</p>
 
                             <div className="flex flex-col border-t border-border/40 pt-5 mt-auto">
                                 <span className="font-bold text-foreground font-space-grotesk">{t.name}</span>

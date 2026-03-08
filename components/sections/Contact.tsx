@@ -106,10 +106,10 @@ export function Contact() {
         <div className="max-w-3xl mb-16 mx-auto text-center">
           <h2 className="text-sm font-bold tracking-widest text-primary uppercase mb-3">Get in Touch</h2>
           <h3 className="text-3xl md:text-5xl font-bold font-space-grotesk text-foreground mb-6 tracking-tight">
-            Let's Build Something Great
+            Let&apos;s Build Something Great
           </h3>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            I'm currently open for new opportunities and consulting. Whether you have a question or just want to engineer a solution, I'll try my best to get back to you.
+            I&apos;m currently open for new opportunities and consulting. Whether you have a question or just want to engineer a solution, I&apos;ll try my best to get back to you.
           </p>
         </div>
 
