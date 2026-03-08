@@ -3,7 +3,12 @@ export const sectionVariants = {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeInOut" },
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 20,
+        duration: 0.8,
+      },
     },
   };
   
@@ -12,7 +17,12 @@ export const sectionVariants = {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.5, ease: "easeInOut" },
+      transition: {
+        type: "spring",
+        stiffness: 120,
+        damping: 15,
+        duration: 0.6,
+      },
     },
   };
   

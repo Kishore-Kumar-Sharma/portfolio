@@ -1,18 +1,27 @@
+'use client';
+import { motion } from "framer-motion";
+import { sectionVariants, cardVariants } from "@/styles/animations";
+
 const SkillBadge = ({ skill }: { skill: string }) => (
-    <div 
+    <motion.div 
         className="bg-secondary dark:bg-secondary/50 text-secondary-foreground dark:text-primary/80 rounded-full px-4 py-2 text-sm font-medium shadow-md"
+        variants={cardVariants}
     >
         {skill}
-    </div>
+    </motion.div>
 );
 
 export function Skills({ skills }: { skills: any }) {
   const skillCategories = Object.keys(skills);
 
   return (
-    <section 
+    <motion.section 
       id="skills"
       className="py-32"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={sectionVariants}
     >
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
@@ -24,17 +33,25 @@ export function Skills({ skills }: { skills: any }) {
 
         <div className="space-y-12">
             {skillCategories.map((category, index) => (
-                <div key={index}>
+                <motion.div key={index} variants={sectionVariants}>
                     <h3 className="text-xl font-bold font-space-grotesk text-primary/90 mb-6 capitalize text-center md:text-left">{category.replace(/([A-Z])/g, ' $1')}</h3>
-                    <div className="flex flex-wrap justify-center md:justify-start gap-4">
+                    <motion.div 
+                        className="flex flex-wrap justify-center md:justify-start gap-4"
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, amount: 0.2 }}
+                        variants={{ 
+                            visible: { transition: { staggerChildren: 0.1 } } 
+                        }}
+                    >
                         {skills[category].map((skill: string, skillIndex: number) => (
                             <SkillBadge key={skillIndex} skill={skill} />
                         ))}
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   )
 }

@@ -1,17 +1,23 @@
+'use client';
+import { motion } from "framer-motion";
 import { Github, ExternalLink } from 'lucide-react';
+import { sectionVariants, cardVariants } from "@/styles/animations";
 
 const ProjectCard = ({ project }: { project: any }) => (
-  <div className="bg-card dark:bg-card/60 border border-border/20 rounded-lg p-6 shadow-lg hover:shadow-xl hover:border-primary/30 transition-all duration-300 flex flex-col h-full">
+  <motion.div 
+    className="bg-card dark:bg-card/60 border border-border/20 rounded-lg p-6 shadow-lg hover:shadow-xl hover:border-primary/30 transition-all duration-300 flex flex-col h-full"
+    variants={cardVariants}
+  >
     <div className="flex-grow">
       <div className="flex justify-between items-start mb-4">
         <h3 className="text-xl font-bold font-space-grotesk text-primary">{project.title}</h3>
         <div className="flex items-center gap-4">
-          {project.githubUrl && (  // Correctly check for githubUrl
+          {project.githubUrl && (
             <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
               <Github className="w-5 h-5" />
             </a>
           )}
-          {project.liveUrl && (  // Correctly check for liveUrl
+          {project.liveUrl && (
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
               <ExternalLink className="w-5 h-5" />
             </a>
@@ -27,12 +33,19 @@ const ProjectCard = ({ project }: { project: any }) => (
         </span>
       ))}
     </div>
-  </div>
+  </motion.div>
 );
 
 export function Projects({ projects }: { projects: any[] }) {
   return (
-    <section id="projects" className="py-32">
+    <motion.section 
+      id="projects" 
+      className="py-32"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+      variants={sectionVariants}
+    >
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold font-space-grotesk text-primary mb-4">Featured Projects</h2>
@@ -40,12 +53,17 @@ export function Projects({ projects }: { projects: any[] }) {
             A collection of my work, from personal experiments to client deliverables.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={{ 
+              visible: { transition: { staggerChildren: 0.2 } } 
+          }}
+        >
           {projects && projects.map((project, index) => (
             <ProjectCard key={index} project={project} />
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

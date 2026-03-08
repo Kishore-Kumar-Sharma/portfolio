@@ -5,6 +5,7 @@ import { submitContactForm } from '@/app/actions';
 import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Send } from 'lucide-react';
+import { sectionVariants, cardVariants } from "@/styles/animations";
 
 const initialState = {
   message: '',
@@ -43,7 +44,7 @@ function SubmitButton() {
 }
 
 const InputField = ({ name, label, type = 'text', errors, ...props }: any) => (
-    <div className="mb-6">
+    <motion.div className="mb-6" variants={cardVariants}>
         <label htmlFor={name} className="block mb-2 text-sm font-medium text-muted-foreground dark:text-primary/80">{label}</label>
         <input 
             name={name} 
@@ -53,7 +54,7 @@ const InputField = ({ name, label, type = 'text', errors, ...props }: any) => (
             {...props}
         />
         {errors && <p className="text-destructive text-sm mt-1">{errors[0]}</p>}
-    </div>
+    </motion.div>
 );
 
 export function Contact() {
@@ -70,10 +71,10 @@ export function Contact() {
     <motion.section
       id="contact"
       className="py-32"
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={sectionVariants}
     >
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
@@ -83,13 +84,18 @@ export function Contact() {
           </p>
         </div>
 
-        <div className="relative max-w-2xl mx-auto">
+        <motion.div 
+          className="relative max-w-2xl mx-auto"
+          variants={{ 
+              visible: { transition: { staggerChildren: 0.2 } } 
+          }}
+        >
           <div className="absolute -inset-2 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-lg blur opacity-25 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 dark:from-cyan-500 dark:to-blue-500 dark:opacity-25 dark:group-hover:opacity-75 animate-tilt"></div>
-          <div className="relative bg-card dark:bg-background/80 backdrop-blur-xl border border-border/20 rounded-lg p-8 shadow-2xl">
+          <motion.div className="relative bg-card dark:bg-background/80 backdrop-blur-xl border border-border/20 rounded-lg p-8 shadow-2xl" variants={cardVariants}>
             <form ref={formRef} action={formAction}>
               <InputField name="name" label="Your Name" errors={state.errors?.name} />
               <InputField name="email" label="Your Email" type="email" errors={state.errors?.email} />
-              <div className="mb-6">
+              <motion.div className="mb-6" variants={cardVariants}>
                 <label htmlFor="message" className="block mb-2 text-sm font-medium text-muted-foreground dark:text-primary/80">Your Message</label>
                 <textarea 
                   name="message" 
@@ -98,7 +104,7 @@ export function Contact() {
                   className={`w-full p-3 rounded-md bg-background dark:bg-background/70 border ${state.errors?.message ? 'border-destructive' : 'border-border/30'} focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-300 shadow-inner`}
                 />
                 {state.errors?.message && <p className="text-destructive text-sm mt-1">{state.errors.message[0]}</p>}
-              </div>
+              </motion.div>
               <SubmitButton />
               {state.message && (
                 <p className={`mt-4 text-center text-sm ${state.success ? 'text-green-400' : 'text-destructive'}`}>
@@ -106,8 +112,8 @@ export function Contact() {
                 </p>
               )}
             </form>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </motion.section>
   );

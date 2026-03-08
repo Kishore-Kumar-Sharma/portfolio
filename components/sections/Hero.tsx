@@ -1,13 +1,44 @@
+'use client';
+import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, ArrowRight, Code } from 'lucide-react';
 import Link from 'next/link';
 import { HeroBackground } from '@/components/HeroBackground';
 
+const containerVariants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.3,
+      delayChildren: 0.3,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 10,
+    },
+  },
+};
+
+
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col justify-center items-center text-center overflow-hidden pt-20">
+    <motion.section
+      className="relative min-h-screen flex flex-col justify-center items-center text-center overflow-hidden pt-20"
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
       <HeroBackground />
       <div className="container mx-auto px-6 relative z-10">
-        <div>
+        <motion.div variants={itemVariants}>
           <div className="inline-block bg-secondary rounded-full px-4 py-1.5 text-sm mb-6 shadow-md">
             <span className="flex items-center gap-2 font-medium text-secondary-foreground">
                 <Code className="w-4 h-4 text-accent-foreground" />
@@ -20,10 +51,11 @@ export function Hero() {
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto mb-10">
             Senior Full Stack Engineer with a passion for building beautiful, performant, and scalable web applications.
           </p>
-        </div>
+        </motion.div>
 
-        <div
+        <motion.div
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12"
+          variants={itemVariants}
         >
           <Link
             href="#projects"
@@ -40,10 +72,11 @@ export function Hero() {
           >
             Get in Touch
           </Link>
-        </div>
+        </motion.div>
 
-        <div
+        <motion.div
           className="flex items-center justify-center gap-8"
+          variants={itemVariants}
         >
           <a href="https://www.linkedin.com/in/kishore-kumar-sharma-product-engineer/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
             <Linkedin className="w-6 h-6" />
@@ -54,8 +87,8 @@ export function Hero() {
           <a href="mailto:kishoresharma914@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
             <Mail className="w-6 h-6" />
           </a>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }
