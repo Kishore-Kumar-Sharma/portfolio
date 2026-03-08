@@ -4,6 +4,6 @@
  * Update `gaMeasurementId` with your Google Analytics 4 Measurement ID (format: G-XXXXXXXXXX).
  */
 export const siteConfig = {
-  baseUrl: "https://kishore-kumar-sharma.dev",
-  gaMeasurementId: "G-XXXXXXXXXX", // ← Replace with your actual GA4 Measurement ID
+  baseUrl: process.env.BASE_URL,
+  gaMeasurementId: process.env.GA_MEASUREMENT_ID, // ← Replace with your actual GA4 Measurement ID
 };
