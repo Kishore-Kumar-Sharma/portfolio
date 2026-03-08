@@ -114,15 +114,6 @@ export function Hero() {
           >
             Get in Touch
           </Link>
-          <a
-            href="/cv.pdf"
-            target="_blank"
-            download="Kishore_Kumar_Sharma_CV.pdf"
-            className="hidden md:inline-flex items-center justify-center px-6 py-3.5 bg-transparent text-muted-foreground font-medium rounded-md hover:text-foreground transition-all duration-200"
-          >
-            <Download className="w-4 h-4 mr-2" />
-            Resume
-          </a>
         </motion.div>
 
         <motion.div
