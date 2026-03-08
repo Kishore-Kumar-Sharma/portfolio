@@ -1,9 +1,9 @@
 /**
  * Site-wide configuration.
- * Update `baseUrl` here and it will reflect across SEO metadata, sitemap, robots, and JSON-LD.
- * Update `gaMeasurementId` with your Google Analytics 4 Measurement ID (format: G-XXXXXXXXXX).
+ * Set BASE_URL and GA_MEASUREMENT_ID in your .env.local (dev) or Vercel dashboard (prod).
+ * Fallbacks are used so the build never fails if env vars are missing.
  */
 export const siteConfig = {
-  baseUrl: process.env.BASE_URL,
-  gaMeasurementId: process.env.GA_MEASUREMENT_ID, // ← Replace with your actual GA4 Measurement ID
+  baseUrl: process.env.BASE_URL ?? "https://kishore-kumar-sharma.dev",
+  gaMeasurementId: process.env.GA_MEASUREMENT_ID ?? "G-XXXXXXXXXX",
 };
