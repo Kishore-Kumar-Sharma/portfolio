@@ -1,67 +1,97 @@
 'use client'
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+import { useState, useTransition } from 'react';
 import { submitContactForm } from '@/app/actions';
-import { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { Send, Loader2, CheckCircle2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Send, Loader2, CheckCircle2, AlertCircle, User, Mail, MessageSquare } from 'lucide-react';
 import { sectionVariants, cardVariants } from "@/styles/animations";
 
-const initialState = {
-  message: '',
-  success: false,
-  errors: undefined,
-};
+const contactSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().min(1, 'Email is required').email('Please enter a valid email address'),
+  message: z.string().min(10, 'Message must be at least 10 characters').max(2000, 'Message must be under 2000 characters'),
+});
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
+type ContactFormData = z.infer<typeof contactSchema>;
 
+// ── Field wrapper with label, icon, error ──────────────────────────────────
+function Field({
+  label, icon: Icon, error, children, charCount, maxChars,
+}: {
+  label: string;
+  icon: React.ElementType;
+  error?: string;
+  children: React.ReactNode;
+  charCount?: number;
+  maxChars?: number;
+}) {
   return (
-    <motion.button
-      type="submit"
-      disabled={pending}
-      className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-primary-foreground bg-primary rounded-md shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
-      whileHover={{ y: -1 }}
-      whileTap={{ y: 1 }}
-    >
-      {pending ? (
-        <>
-          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-          <span>Sending out...</span>
-        </>
-      ) : (
-        <>
-          <Send className="w-4 h-4 mr-2" />
-          <span>Send Message</span>
-        </>
-      )}
-    </motion.button>
+    <motion.div className="mb-5" variants={cardVariants}>
+      <div className="flex items-center justify-between mb-1.5">
+        <label className="flex items-center gap-1.5 text-sm font-medium text-foreground">
+          <Icon className="w-3.5 h-3.5 text-primary" />
+          {label}
+        </label>
+        {charCount !== undefined && maxChars && (
+          <span className={`text-xs tabular-nums ${charCount > maxChars * 0.9 ? 'text-destructive' : 'text-muted-foreground'}`}>
+            {charCount}/{maxChars}
+          </span>
+        )}
+      </div>
+      {children}
+      <AnimatePresence>
+        {error && (
+          <motion.p
+            key="error"
+            initial={{ opacity: 0, y: -4, height: 0 }}
+            animate={{ opacity: 1, y: 0, height: 'auto' }}
+            exit={{ opacity: 0, y: -4, height: 0 }}
+            transition={{ duration: 0.18 }}
+            className="flex items-center gap-1 text-destructive text-xs mt-1.5 font-medium"
+          >
+            <AlertCircle className="w-3 h-3 shrink-0" />
+            {error}
+          </motion.p>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
 
-const InputField = ({ name, label, type = 'text', errors, ...props }: any) => (
-  <motion.div className="mb-6" variants={cardVariants}>
-    <label htmlFor={name} className="block mb-2 text-sm font-medium text-foreground">{label}</label>
-    <input
-      name={name}
-      id={name}
-      type={type}
-      className={`w-full px-4 py-3 rounded-md bg-secondary/50 border ${errors ? 'border-destructive' : 'border-border/60'} focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 text-foreground placeholder:text-muted-foreground`}
-      {...props}
-    />
-    {errors && <p className="text-destructive text-sm mt-1.5">{errors[0]}</p>}
-  </motion.div>
-);
-
 export function Contact() {
-  const [state, formAction] = useFormState(submitContactForm, initialState);
-  const formRef = useRef<HTMLFormElement>(null);
+  const [submitResult, setSubmitResult] = useState<{ success: boolean; message: string } | null>(null);
+  const [isPending, startTransition] = useTransition();
 
-  useEffect(() => {
-    if (state.success) {
-      formRef.current?.reset();
-    }
-  }, [state.success]);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors, isValid, dirtyFields },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    mode: 'onChange',       // ← validates on every keystroke
+    criteriaMode: 'all',
+  });
+
+  const messageValue = watch('message', '');
+
+  const onSubmit = (data: ContactFormData) => {
+    setSubmitResult(null);
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('email', data.email);
+    formData.append('message', data.message);
+
+    startTransition(async () => {
+      const result = await submitContactForm(null, formData);
+      setSubmitResult({ success: result.success, message: result.message });
+      if (result.success) reset();
+    });
+  };
 
   return (
     <motion.section
@@ -85,39 +115,109 @@ export function Contact() {
 
         <motion.div
           className="max-w-xl mx-auto"
-          variants={{
-            visible: { transition: { staggerChildren: 0.1 } }
-          }}
+          variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
         >
-          <motion.div className="bg-card/50 border border-border/40 backdrop-blur-sm rounded-xl p-8 shadow-sm" variants={cardVariants}>
-            <form ref={formRef} action={formAction}>
-              <InputField name="name" label="Full Name" placeholder="John Doe" errors={state.errors?.name} />
-              <InputField name="email" label="Email Address" type="email" placeholder="john@example.com" errors={state.errors?.email} />
-              <motion.div className="mb-8" variants={cardVariants}>
-                <label htmlFor="message" className="block mb-2 text-sm font-medium text-foreground">Message</label>
+          <motion.div
+            className="bg-card/50 border border-border/40 backdrop-blur-sm rounded-xl p-8 shadow-sm"
+            variants={cardVariants}
+          >
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              {/* Name */}
+              <Field label="Full Name" icon={User} error={errors.name?.message}>
+                <input
+                  {...register('name')}
+                  id="name"
+                  type="text"
+                  placeholder="John Doe"
+                  className={`w-full px-4 py-3 rounded-md bg-secondary/50 border transition-all duration-200 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2
+                    ${errors.name
+                      ? 'border-destructive focus:ring-destructive/20'
+                      : dirtyFields.name
+                        ? 'border-emerald-500/60 focus:ring-emerald-500/20'
+                        : 'border-border/60 focus:ring-primary/20 focus:border-primary'
+                    }`}
+                />
+              </Field>
+
+              {/* Email */}
+              <Field label="Email Address" icon={Mail} error={errors.email?.message}>
+                <input
+                  {...register('email')}
+                  id="email"
+                  type="email"
+                  placeholder="john@example.com"
+                  className={`w-full px-4 py-3 rounded-md bg-secondary/50 border transition-all duration-200 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2
+                    ${errors.email
+                      ? 'border-destructive focus:ring-destructive/20'
+                      : dirtyFields.email
+                        ? 'border-emerald-500/60 focus:ring-emerald-500/20'
+                        : 'border-border/60 focus:ring-primary/20 focus:border-primary'
+                    }`}
+                />
+              </Field>
+
+              {/* Message */}
+              <Field
+                label="Message"
+                icon={MessageSquare}
+                error={errors.message?.message}
+                charCount={messageValue.length}
+                maxChars={2000}
+              >
                 <textarea
-                  name="message"
+                  {...register('message')}
                   id="message"
                   rows={5}
-                  placeholder="Tell me about your project architecture..."
-                  className={`w-full px-4 py-3 rounded-md bg-secondary/50 border ${state.errors?.message ? 'border-destructive' : 'border-border/60'} focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200 text-foreground placeholder:text-muted-foreground resize-none`}
+                  placeholder="Tell me about your project..."
+                  className={`w-full px-4 py-3 rounded-md bg-secondary/50 border transition-all duration-200 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 resize-none
+                    ${errors.message
+                      ? 'border-destructive focus:ring-destructive/20'
+                      : dirtyFields.message && !errors.message
+                        ? 'border-emerald-500/60 focus:ring-emerald-500/20'
+                        : 'border-border/60 focus:ring-primary/20 focus:border-primary'
+                    }`}
                 />
-                {state.errors?.message && <p className="text-destructive text-sm mt-1.5">{state.errors.message[0]}</p>}
-              </motion.div>
+              </Field>
 
-              <div className="flex flex-col sm:flex-row items-center gap-4 justify-between transition-all">
-                <SubmitButton />
+              {/* Submit + Result */}
+              <div className="flex flex-col sm:flex-row items-center gap-4 justify-between mt-2">
+                <motion.button
+                  type="submit"
+                  disabled={isPending || !isValid}
+                  whileHover={{ y: !isPending && isValid ? -1 : 0 }}
+                  whileTap={{ y: !isPending && isValid ? 1 : 0 }}
+                  className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 text-sm font-medium text-primary-foreground bg-primary rounded-md shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+                >
+                  {isPending ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4 mr-2" />
+                      Send Message
+                    </>
+                  )}
+                </motion.button>
 
-                {state.message && (
-                  <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className={`flex items-center text-sm font-medium ${state.success ? 'text-emerald-500' : 'text-destructive'}`}
-                  >
-                    {state.success && <CheckCircle2 className="w-4 h-4 mr-1.5" />}
-                    {state.message}
-                  </motion.div>
-                )}
+                <AnimatePresence>
+                  {submitResult && (
+                    <motion.div
+                      key="result"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0 }}
+                      className={`flex items-center gap-1.5 text-sm font-medium ${submitResult.success ? 'text-emerald-500' : 'text-destructive'}`}
+                    >
+                      {submitResult.success
+                        ? <CheckCircle2 className="w-4 h-4 shrink-0" />
+                        : <AlertCircle className="w-4 h-4 shrink-0" />
+                      }
+                      {submitResult.message}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </form>
           </motion.div>

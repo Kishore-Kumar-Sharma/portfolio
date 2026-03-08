@@ -1,35 +1,98 @@
 'use server'
 
 import { z } from 'zod'
+import nodemailer from 'nodemailer'
 
 const contactFormSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   email: z.string().email('Invalid email address'),
-  message: z.string().min(1, 'Message is required'),
+  message: z.string().min(10, 'Message must be at least 10 characters'),
 });
 
 export async function submitContactForm(prevState: any, formData: FormData) {
-    const validatedFields = contactFormSchema.safeParse({
-        name: formData.get('name'),
-        email: formData.get('email'),
-        message: formData.get('message'),
+  const validatedFields = contactFormSchema.safeParse({
+    name: formData.get('name'),
+    email: formData.get('email'),
+    message: formData.get('message'),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Please correct the errors and try again.',
+      success: false,
+    };
+  }
+
+  const { name, email, message } = validatedFields.data;
+
+  // ── Nodemailer via Gmail SMTP ──────────────────────────────────────────────
+  const gmailUser = process.env.GMAIL_USER;
+  const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
+
+  if (!gmailUser || !gmailAppPassword) {
+    // Graceful dev fallback — no credentials configured yet
+    console.log('📬 [DEV] Contact form (Gmail not configured):', { name, email, message });
+    return {
+      message: "Thank you for reaching out! I'll get back to you soon.",
+      success: true,
+      errors: undefined,
+    };
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: gmailUser,
+        pass: gmailAppPassword, // Use a Gmail App Password, NOT your account password
+      },
     });
 
-    if (!validatedFields.success) {
-        return {
-            errors: validatedFields.error.flatten().fieldErrors,
-            message: 'Please correct the errors and try again.',
-            success: false,
-        };
-    }
-
-    // In a real-world application, you would integrate a service like Resend or SendGrid to send an email,
-    // or save the form data to a database. For this demo, we'll just log the data.
-    console.log("New inquiry received:", validatedFields.data);
-
+    await transporter.sendMail({
+      from: `"Portfolio Contact" <${gmailUser}>`,
+      to: gmailUser,           // sends to yourself
+      replyTo: email,          // so you can Reply directly to the sender
+      subject: `💼 New inquiry from ${name} via Portfolio`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #f9fafb; border-radius: 8px;">
+          <h2 style="color: #111827; margin-bottom: 4px;">New Contact Form Submission</h2>
+          <p style="color: #6b7280; margin-top: 0;">Received via your portfolio contact form</p>
+          <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;" />
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+              <td style="padding: 8px 0; font-weight: 600; color: #374151; width: 80px;">Name</td>
+              <td style="padding: 8px 0; color: #111827;">${name}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; font-weight: 600; color: #374151;">Email</td>
+              <td style="padding: 8px 0;">
+                <a href="mailto:${email}" style="color: #7c3aed;">${email}</a>
+              </td>
+            </tr>
+          </table>
+          <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;" />
+          <h3 style="color: #374151; margin-bottom: 8px;">Message</h3>
+          <p style="color: #111827; line-height: 1.7; white-space: pre-wrap;">${message}</p>
+          <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;" />
+          <p style="color: #9ca3af; font-size: 12px;">
+            Sent from kishore-kumar-sharma.dev · Hit Reply to respond directly to ${name}.
+          </p>
+        </div>
+      `,
+    });
+  } catch (err) {
+    console.error('Nodemailer error:', err);
     return {
-        message: 'Thank you for your message! I will get back to you soon.',
-        success: true,
-        errors: undefined,
+      message: 'Failed to send message. Please try contacting me directly via email.',
+      success: false,
+      errors: undefined,
     };
+  }
+
+  return {
+    message: "Message sent! I'll get back to you soon.",
+    success: true,
+    errors: undefined,
+  };
 }

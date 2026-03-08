@@ -5,7 +5,6 @@ import "./globals.css";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { ScrollToTop } from "@/components/ScrollToTop";
 import { FloatingActions } from "@/components/FloatingActions";
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: '--font-space-grotesk' });
@@ -16,26 +15,42 @@ const { baseUrl } = siteConfig;
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Kishore Kumar Sharma | Senior Full Stack Engineer",
+    default: "Kishore Kumar Sharma | Senior Full Stack Engineer — Available for Hire",
     template: "%s | Kishore Kumar Sharma",
   },
   description:
-    "Senior Full Stack Engineer with 6.5+ years of expertise in Java/Spring Boot, NodeJS, MEAN/MERN stack, AWS Cloud, and microservices architecture. Building scalable, production-grade software across Telecom, FinTech, GovTech, and EdTech domains.",
+    "Senior Full Stack Engineer (6.5+ yrs) specializing in Java/Spring Boot, NodeJS/NestJS, React, Angular, AWS & microservices. Available for full-time roles, contract work & consulting. Proven across Telecom, FinTech, GovTech & EdTech.",
   keywords: [
+    // Identity
     "Kishore Kumar Sharma",
-    "Senior Full Stack Engineer",
-    "Java Spring Boot",
-    "NodeJS Developer",
-    "React Developer",
-    "Angular Developer",
-    "MERN Stack",
-    "MEAN Stack",
-    "AWS Cloud",
-    "Microservices",
-    "NestJS",
-    "Full Stack Portfolio",
-    "Software Engineer India",
-    "Noida Developer",
+    "Kishore Kumar Sharma portfolio",
+    // Hiring signals
+    "Senior Full Stack Engineer for hire",
+    "Full Stack Developer available for hire",
+    "Software Engineer available India",
+    "Hire Full Stack Developer India",
+    "Remote Full Stack Developer",
+    "Freelance Full Stack Engineer",
+    "Contract Software Engineer India",
+    "Full Stack Consultant",
+    // Tech stack
+    "Java Spring Boot developer",
+    "NodeJS NestJS developer",
+    "React Angular developer",
+    "MERN Stack developer",
+    "MEAN Stack developer",
+    "AWS Cloud engineer",
+    "Microservices architect",
+    "Docker Kubernetes developer",
+    // Location
+    "Software Engineer Noida",
+    "Full Stack Developer Delhi NCR",
+    "Remote developer India",
+    // Role signals
+    "Senior Software Engineer",
+    "Backend Engineer Java",
+    "Full Stack Portfolio 2025",
+    "Tech Lead India",
   ],
   authors: [{ name: "Kishore Kumar Sharma", url: baseUrl }],
   creator: "Kishore Kumar Sharma",
@@ -59,23 +74,23 @@ export const metadata: Metadata = {
     locale: "en_IN",
     url: baseUrl,
     siteName: "Kishore Kumar Sharma — Portfolio",
-    title: "Kishore Kumar Sharma | Senior Full Stack Engineer",
+    title: "Kishore Kumar Sharma | Senior Full Stack Engineer — Available for Hire",
     description:
-      "Senior Full Stack Engineer with 6.5+ years of expertise in Java/Spring Boot, NodeJS, MEAN/MERN, AWS, and microservices. Explore my work, certifications, and experience.",
+      "6.5+ years building production-grade full-stack systems. Open to full-time, contract & consulting roles. Java, Spring Boot, NodeJS, React, Angular, AWS.",
     images: [
       {
         url: "/profile-picture.jpg",
         width: 1200,
         height: 630,
-        alt: "Kishore Kumar Sharma — Senior Full Stack Engineer",
+        alt: "Kishore Kumar Sharma — Senior Full Stack Engineer, Available for Hire",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kishore Kumar Sharma | Senior Full Stack Engineer",
+    title: "Kishore Kumar Sharma | Senior Full Stack Engineer — Available for Hire",
     description:
-      "6.5+ years building scalable full-stack systems with Java, Node.js, React, Angular, and AWS. Browse my portfolio.",
+      "6.5+ years across Java, Node.js, React, Angular & AWS. Open to full-time, contract & consulting. Let's build something great.",
     images: ["/profile-picture.jpg"],
     creator: "@kishoresharma",
   },
@@ -118,6 +133,25 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {/* Google Analytics 4 — only in production */}
+        {process.env.NODE_ENV === "production" && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.gaMeasurementId}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${siteConfig.gaMeasurementId}', { page_path: window.location.pathname });
+                `,
+              }}
+            />
+          </>
+        )}
       </head>
       <body className={`${jetbrainsMono.variable} ${spaceGrotesk.variable} font-mono bg-background text-foreground`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
