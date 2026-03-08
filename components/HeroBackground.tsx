@@ -3,32 +3,31 @@
 import { useEffect, useState } from 'react';
 
 export const HeroBackground = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      setMousePosition({ x: event.clientX, y: event.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
+    setIsMounted(true);
   }, []);
 
+  if (!isMounted) return <div className="absolute inset-0 -z-10 overflow-hidden bg-background opacity-0" />;
+
   return (
-    <div className="absolute inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-dot-pattern" />
-      <div 
-        className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background opacity-50" 
+    <div className="absolute inset-0 -z-10 bg-background pointer-events-none overflow-hidden animate-in fade-in duration-1000">
+
+      {/* 
+        Fully Visible Dot Pattern
+        We combine the scrolling animation from CSS with the parallax mouse movement 
+      */}
+      <div
+        className="absolute inset-0 bg-dot-pattern opacity-100 dark:opacity-80 transition-transform duration-200 ease-out"
       />
-      <div 
-        className="absolute inset-0 mix-blend-multiply"
-        style={{
-          background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, hsl(var(--primary) / 0.2), transparent 40%)`,
-        }}
-      />
+
+      {/* Subtle Primary Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-80" />
+
+      {/* Bottom fade out to seamlessly blend into the next section */}
+      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background via-transparent to-transparent pointer-events-none" />
+
     </div>
   );
 };

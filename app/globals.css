@@ -62,7 +62,7 @@
 @layer utilities {
     .bg-dot-pattern {
         @apply animate-dot-scroll;
-        background-image: radial-gradient(circle at 1px 1px, hsl(var(--foreground) / 0.1) 1px, transparent 0);
+        background-image: radial-gradient(circle at 2px 2px, hsl(var(--foreground) / 0.25) 2px, transparent 0);
         background-size: 2rem 2rem;
     }
 }

@@ -36,7 +36,6 @@ export function Hero() {
       animate="visible"
       variants={containerVariants}
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background/50 z-0"></div>
       <HeroBackground />
 
       <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
