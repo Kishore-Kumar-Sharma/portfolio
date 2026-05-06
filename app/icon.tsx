@@ -1,38 +1,32 @@
-import { ImageResponse } from 'next/og'
+import { ImageResponse } from "next/og";
 
-// Route segment config
-export const runtime = 'edge'
+export const runtime = "edge";
 
-// Image metadata
-export const size = {
-    width: 32,
-    height: 32,
-}
-export const contentType = 'image/png'
+export const size = { width: 32, height: 32 };
+export const contentType = "image/png";
 
 export default function Icon() {
-    return new ImageResponse(
-        (
-            <div
-                style={{
-                    fontSize: 24,
-                    background: '#0ea5e9', // Tailwind 'sky-500' / Primary color concept
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white',
-                    borderRadius: '20%',
-                    fontWeight: 800,
-                    fontFamily: 'monospace'
-                }}
-            >
-                R
-            </div>
-        ),
-        {
-            ...size,
-        }
-    )
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          background: "#0A0A0B",
+          color: "#C9A8FF",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          fontSize: 22,
+          fontWeight: 700,
+          fontFamily: "monospace",
+          borderRadius: "22%",
+          letterSpacing: "-0.04em",
+        }}
+      >
+        K
+      </div>
+    ),
+    { ...size }
+  );
 }

@@ -3,24 +3,26 @@ import type { Config } from "tailwindcss";
 const config = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
   prefix: "",
   theme: {
     container: {
       center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      padding: { DEFAULT: "1.25rem", md: "2rem", lg: "3rem" },
+      screens: { "2xl": "1440px" },
     },
     extend: {
       fontFamily: {
-        'sans': ['var(--font-jetbrains-mono)'],
-        'space-grotesk': ['var(--font-space-grotesk)', 'sans-serif'],
+        // Editorial display (variable, with optical sizing)
+        display: ["var(--font-fraunces)", "ui-serif", "Georgia", "serif"],
+        // UI / body
+        sans: ["var(--font-inter)", "ui-sans-serif", "system-ui", "sans-serif"],
+        // Code / metrics / kbd
+        mono: ["var(--font-jetbrains-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -28,17 +30,11 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        surface: "hsl(var(--surface))",
+        subtle: "hsl(var(--subtle))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -48,14 +44,41 @@ const config = {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        // Domain accent siblings (one chroma family, distinct hues)
+        telecom: "hsl(var(--telecom))",
+        fintech: "hsl(var(--fintech))",
+        govtech: "hsl(var(--govtech))",
+        edtech: "hsl(var(--edtech))",
+      },
+      fontSize: {
+        // Fluid editorial scale
+        "eyebrow": ["0.72rem", { lineHeight: "1rem", letterSpacing: "0.18em" }],
+        "caption": ["0.8125rem", { lineHeight: "1.25rem" }],
+        "body": ["1rem", { lineHeight: "1.65" }],
+        "body-lg": ["1.125rem", { lineHeight: "1.7" }],
+        "lead": ["clamp(1.125rem, 1.6vw, 1.5rem)", { lineHeight: "1.55" }],
+        "heading-sm": ["clamp(1.25rem, 2vw, 1.625rem)", { lineHeight: "1.25" }],
+        "heading": ["clamp(1.75rem, 3.2vw, 2.625rem)", { lineHeight: "1.15", letterSpacing: "-0.015em" }],
+        "display-sm": ["clamp(2.25rem, 4.5vw, 3.5rem)", { lineHeight: "1.05", letterSpacing: "-0.025em" }],
+        "display": ["clamp(2.75rem, 6vw, 5rem)", { lineHeight: "1", letterSpacing: "-0.03em" }],
+        "display-lg": ["clamp(3.25rem, 9vw, 8rem)", { lineHeight: "0.95", letterSpacing: "-0.035em" }],
+        "display-xl": ["clamp(4rem, 13vw, 12rem)", { lineHeight: "0.92", letterSpacing: "-0.045em" }],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -71,60 +94,34 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "aurora": {
-          from: {
-            backgroundPosition: "50% 50%, 50% 50%",
-          },
-          to: {
-            backgroundPosition: "350% 50%, 350% 50%",
-          },
+        "trace-flow": {
+          "0%": { strokeDashoffset: "200" },
+          "100%": { strokeDashoffset: "0" },
         },
-        "background-shine": {
-          from: {
-            backgroundPosition: "0 0",
-          },
-          to: {
-            backgroundPosition: "-200% 0",
-          },
+        "pulse-soft": {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "1" },
         },
-        spotlight: {
-          "0%": {
-            opacity: '0',
-            transform: "translate(-72%, -62%) scale(0.5)",
-          },
-          "100%": {
-            opacity: '1',
-            transform: "translate(-50%,-40%) scale(1)",
-          },
+        "marquee": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
         },
-        "tilt": {
-          "0%, 50%, 100%": {
-            transform: "rotate(0deg)",
-          },
-          "25%": {
-            transform: "rotate(0.5deg)",
-          },
-          "75%": {
-            transform: "rotate(-0.5deg)",
-          },
+        "caret-blink": {
+          "0%, 100%": { opacity: "0" },
+          "50%": { opacity: "1" },
         },
-        "dot-scroll": {
-            "0%": { backgroundPosition: "0 0" },
-            "100%": { backgroundPosition: "2rem 2rem" },
-        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "aurora": "aurora 60s linear infinite",
-        "background-shine": "background-shine 2s linear infinite",
-        spotlight: "spotlight 2s ease .75s 1 forwards",
-        "tilt": "tilt 10s linear infinite",
-        "dot-scroll": "dot-scroll 30s linear infinite",
+        "trace-flow": "trace-flow 2s ease-out forwards",
+        "pulse-soft": "pulse-soft 2.4s ease-in-out infinite",
+        "marquee": "marquee 40s linear infinite",
+        "caret-blink": "caret-blink 1.1s steps(1) infinite",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
+export default config;

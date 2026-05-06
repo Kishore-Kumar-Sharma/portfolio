@@ -2,6 +2,7 @@
   "personal": {
     "name": "Kishore Kumar Sharma",
     "title": "Senior Full Stack Engineer",
+    "tagline": "I ship end-to-end. Schema to surface. No handoffs.",
     "experienceYears": "6.5+",
     "location": "Noida, UP",
     "email": "kishoresharma914@gmail.com",
@@ -10,7 +11,25 @@
     "naukri": "https://www.naukri.com/mnjuser/profile",
     "github": "https://github.com/kishore-kumar-sharma"
   },
-  "summary": "Results-driven Senior Full Stack Engineer (6+ years) with proven expertise in building and leading cloud-native microservice architectures using Java/Spring Boot, NodeJS/NestJS, MEAN/MERN stack and React/Angular. Experienced across Telecom, FinTech, GovTech, and EdTech domains with a strong focus on scalability, performance, and automation. Skilled in AWS Cloud, CI/CD pipelines, and system observability. Passionate about mentoring teams and driving full lifecycle delivery of enterprise-grade software that improves efficiency and customer experience.",
+  "summary": "Six and a half years shipping end-to-end. I take features from data model to deployed UI — designing the schema, writing the services, building the screens, running the deploys. Backend-deep by training, full-stack by delivery. Built across telecom, fintech, govtech and edtech — every system shipped with measurable lift.",
+  "manifesto": [
+    "I ship end-to-end. Schema to surface, service to screen — no handoff costs, no blocked tickets, no waiting on the other team.",
+    "Backend is my depth — Java/Spring Boot, Node/NestJS, microservices, AWS — but I write the React and Angular too. The same engineer ships the API and the form that calls it.",
+    "I have worked across four verticals — telecom, fintech, govtech, edtech — because the discipline travels: model the domain, draw clean boundaries, instrument what matters, ship measurable lift.",
+    "Every system I have owned shipped with a number attached: 30% faster APIs, 70% less manual work, 35+ enterprise integrations. If it does not move a metric, I do not ship it."
+  ],
+  "domains": [
+    { "id": "telecom", "name": "Telecom", "label": "Pan-India 4G · DIA microservices", "since": "2023" },
+    { "id": "fintech", "name": "FinTech", "label": "Loan processing · CRM modernization", "since": "2021" },
+    { "id": "edtech", "name": "EdTech", "label": "Live-class platform · Socket.io · WebRTC", "since": "2020" },
+    { "id": "govtech", "name": "GovTech", "label": "E-governance portals at department scale", "since": "2020" }
+  ],
+  "stats": [
+    { "value": "6.5", "suffix": "+", "label": "years shipping production systems" },
+    { "value": "35", "suffix": "+", "label": "enterprise systems integrated" },
+    { "value": "4", "suffix": "", "label": "verticals · telecom, fintech, govtech, edtech" },
+    { "value": "30", "suffix": "%", "label": "average API throughput lift" }
+  ],
   "skills": {
     "backend": [
       "Java",
@@ -120,14 +139,14 @@
       ],
       "projects": [
         {
-          "title": "DIA (Direct Internet Access)",
+          "title": "National Enterprise Connectivity Platform",
           "duration": "Jan 2024 - Present",
-          "description": "Led the architectural design and development of a large-scale microservices platform supporting the DIA initiative and a Pan-India 4G network rollout, enabling seamless integration across more than 30 enterprise services. Optimized backend services to significantly enhance API response times."
+          "description": "Led the architectural design and development of a large-scale microservices platform powering a national enterprise connectivity initiative aligned with a country-wide carrier network rollout. Enabled seamless integration across 30+ enterprise services and optimized backend services to significantly enhance API response times and throughput."
         },
         {
-          "title": "Network Planning Spectrum Lease",
+          "title": "Network Planning & Resource Allocation Suite",
           "duration": "Jun 2023 - Dec 2023",
-          "description": "Managed and maintained a microservices-based architecture for internal network planning portals, demonstrating strong expertise in distributed systems. Delivered end-to-end full-stack solutions prioritizing code optimization and performance tuning."
+          "description": "Owned and maintained a microservices-based architecture for internal telecom planning portals, demonstrating strong expertise in distributed systems and resource allocation workflows. Delivered end-to-end full-stack modules with a focus on code optimization, performance tuning, and operational reliability."
         }
       ]
     },

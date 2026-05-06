@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { motion, AnimatePresence } from 'framer-motion';
-import Image from 'next/image';
-import { X, Award, ExternalLink } from 'lucide-react';
-import { useEffect, useId, useRef } from 'react';
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { X, Award, ExternalLink } from "lucide-react";
+import { useEffect, useId, useRef } from "react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -26,17 +26,17 @@ export function Modal({ isOpen, onClose, certificate }: ModalProps) {
   useEffect(() => {
     if (!isOpen) return;
     previouslyFocused.current = document.activeElement as HTMLElement | null;
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
     closeButtonRef.current?.focus();
 
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
-    window.addEventListener('keydown', onKeyDown);
+    window.addEventListener("keydown", onKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', onKeyDown);
-      document.body.style.overflow = 'unset';
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "unset";
       previouslyFocused.current?.focus();
     };
   }, [isOpen, onClose]);
@@ -49,73 +49,68 @@ export function Modal({ isOpen, onClose, certificate }: ModalProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 md:p-6"
+        className="fixed inset-0 z-[150] flex items-center justify-center bg-background/80 backdrop-blur-md p-4 md:p-8"
         onClick={onClose}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
       >
         <motion.div
-          initial={{ scale: 0.95, opacity: 0, y: 20 }}
+          initial={{ scale: 0.97, opacity: 0, y: 12 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
-          exit={{ scale: 0.95, opacity: 0, y: 20 }}
-          transition={{ duration: 0.3, type: "spring", damping: 25, stiffness: 300 }}
-          className="relative w-full max-w-5xl h-full max-h-[90vh] flex flex-col bg-background/95 border border-border/50 rounded-2xl shadow-2xl overflow-hidden"
+          exit={{ scale: 0.97, opacity: 0, y: 12 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          className="relative w-full max-w-5xl max-h-[88vh] flex flex-col bg-surface border border-subtle rounded-xl shadow-2xl overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-border/40 shrink-0 bg-secondary/20">
-            <h3 id={titleId} className="font-space-grotesk font-bold text-xl text-foreground truncate pr-4">
-              {certificate.title}
-            </h3>
+          <div className="flex items-center justify-between px-6 py-4 border-b border-subtle/60 shrink-0">
+            <div className="flex items-center gap-3 min-w-0">
+              <span className="eyebrow text-fintech shrink-0">/cert</span>
+              <h3 id={titleId} className="font-display text-[1.1rem] truncate text-foreground">
+                {certificate.title}
+              </h3>
+            </div>
             <button
               ref={closeButtonRef}
               onClick={onClose}
-              className="p-2 bg-background hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors rounded-full shrink-0 shadow-sm border border-border/50"
-              aria-label="Close modal"
+              aria-label="Close"
+              className="inline-flex items-center justify-center w-9 h-9 rounded-md border border-subtle text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-colors shrink-0"
             >
-              <X size={20} />
+              <X size={16} />
             </button>
           </div>
 
-          {/* Content */}
-          <div className="flex-1 overflow-y-auto w-full p-6 flex flex-col items-center justify-center bg-dot-pattern">
+          <div className="flex-1 overflow-y-auto p-6 md:p-10">
             {certificate.image ? (
-              <div className="relative w-full h-full min-h-[50vh]">
+              <div className="relative w-full h-[60vh] min-h-[40vh]">
                 <Image
                   src={certificate.image}
                   alt={certificate.title}
                   fill
-                  className="object-contain rounded-lg shadow-sm"
+                  className="object-contain rounded-lg"
                   quality={100}
                 />
               </div>
             ) : (
-              <div className="flex flex-col items-center text-center max-w-xl mx-auto py-12 px-6 bg-card/50 backdrop-blur-sm rounded-2xl border border-border/50 shadow-lg">
-                <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mb-6 text-primary ring-1 ring-primary/20">
-                  <Award size={48} />
+              <div className="max-w-xl mx-auto py-8 text-center">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-full border border-subtle flex items-center justify-center text-fintech">
+                  <Award size={32} />
                 </div>
-                <h2 className="text-3xl font-space-grotesk font-bold mb-4 text-foreground">
-                  {certificate.title}
-                </h2>
-                <div className="space-y-2 text-muted-foreground mb-8">
-                  {certificate.issuer && <p>Issuer: <span className="text-foreground font-medium">{certificate.issuer}</span></p>}
-                  {certificate.year && <p>Issued: <span className="text-foreground font-medium">{certificate.year}</span></p>}
-                  {certificate.credentialId && <p>Credential ID: <span className="text-foreground font-medium">{certificate.credentialId}</span></p>}
+                <h2 className="font-display text-display-sm text-foreground mb-3">{certificate.title}</h2>
+                <div className="space-y-1.5 text-[0.92rem] text-muted-foreground mb-8 font-mono">
+                  {certificate.issuer && <p>Issuer · <span className="text-foreground">{certificate.issuer}</span></p>}
+                  {certificate.year && <p>Issued · <span className="text-foreground">{certificate.year}</span></p>}
+                  {certificate.credentialId && <p>ID · <span className="text-foreground">{certificate.credentialId}</span></p>}
                 </div>
-
                 {certificate.link && (
                   <a
                     href={certificate.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground font-medium rounded-lg hover:bg-primary/90 transition-colors shadow-sm"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-md bg-foreground text-background hover:opacity-90 transition-opacity"
                   >
-                    Verify Credential <ExternalLink size={16} />
+                    Verify credential <ExternalLink size={14} />
                   </a>
-                )}
-                {!certificate.link && !certificate.issuer && (
-                  <p className="text-sm text-primary/80 italic bg-primary/5 px-4 py-2 rounded-md">Certificate placeholder. Please add media or links to portfolio.json.</p>
                 )}
               </div>
             )}

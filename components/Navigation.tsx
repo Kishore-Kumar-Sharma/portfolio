@@ -1,51 +1,83 @@
-'use client';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { ThemeToggle } from './ThemeToggle';
-import { Terminal } from 'lucide-react';
-import portfolioData from '@/data/portfolio.json';
+"use client";
+
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { ThemeToggle } from "./ThemeToggle";
+import { cn } from "@/lib/utils";
+
+const NAV = [
+  { href: "#work", label: "Work" },
+  { href: "#capability", label: "Capability" },
+  { href: "#proof", label: "Proof" },
+  { href: "#contact", label: "Contact" },
+];
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const firstName = portfolioData.personal.name.split(' ')[0];
+  const openConsole = () => {
+    window.dispatchEvent(new CustomEvent("console:open"));
+  };
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 border-b ${scrolled
-        ? 'bg-background/80 backdrop-blur-lg border-border/40 py-3 shadow-sm'
-        : 'bg-transparent border-transparent py-5'
-        }`}
+      className={cn(
+        "fixed top-0 inset-x-0 z-50 transition-[background-color,backdrop-filter,border-color,padding] duration-300",
+        scrolled
+          ? "bg-background/70 backdrop-blur-md border-b border-subtle/60 py-3"
+          : "bg-transparent border-b border-transparent py-5"
+      )}
     >
-      <nav className="container mx-auto px-6 flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-2 text-xl font-bold font-space-grotesk text-foreground tracking-tight group">
-          <Terminal className="w-5 h-5 text-primary" />
-          <span>{firstName}<span className="text-primary">.dev</span></span>
+      <nav className="container-editorial flex items-center justify-between gap-6">
+        <Link
+          href="/"
+          aria-label="Kishore Kumar Sharma — home"
+          className="group flex items-center gap-2"
+        >
+          <span className="font-mono text-[0.78rem] tracking-[0.18em] uppercase text-muted-foreground group-hover:text-foreground transition-colors">
+            kks
+          </span>
+          <span className="h-1 w-1 rounded-full bg-accent animate-pulse-soft" aria-hidden />
+          <span className="font-display text-[0.95rem] tracking-tight text-foreground hidden sm:inline">
+            Kishore Kumar Sharma
+          </span>
         </Link>
 
-        <div className="hidden md:flex items-center space-x-8 text-sm font-medium">
-          <Link href="#skills" className="text-muted-foreground hover:text-foreground transition-colors">Skills</Link>
-          <Link href="#experience" className="text-muted-foreground hover:text-foreground transition-colors">Experience</Link>
-          <Link href="#projects" className="text-muted-foreground hover:text-foreground transition-colors">Projects</Link>
-          <Link href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link>
+        <div className="hidden md:flex items-center gap-8 text-[0.85rem] text-muted-foreground">
+          {NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="relative hover:text-foreground transition-colors"
+            >
+              {item.label}
+            </Link>
+          ))}
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center gap-2 md:gap-3">
+          <button
+            onClick={openConsole}
+            aria-label="Open console (Cmd+K)"
+            className="group hidden sm:inline-flex items-center gap-2 px-2.5 py-1.5 rounded-md border border-subtle text-muted-foreground hover:text-foreground hover:border-foreground/40 transition-colors"
+          >
+            <span className="font-mono text-[0.7rem] tracking-wide">console</span>
+            <span className="kbd">⌘K</span>
+          </button>
           <ThemeToggle />
           <Link
             href="#contact"
-            className="hidden md:inline-flex px-4 py-2 bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20 font-medium rounded-md text-sm transition-colors"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-foreground text-background text-[0.82rem] hover:opacity-90 transition-opacity"
           >
-            <span className="hidden lg:inline">Hire Me</span>
-            <span className="lg:hidden">Hire</span>
+            Get in touch
+            <span aria-hidden>→</span>
           </Link>
         </div>
       </nav>

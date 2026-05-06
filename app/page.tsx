@@ -1,27 +1,20 @@
-import { About } from "@/components/sections/About";
-import { Certifications } from "@/components/sections/Certifications";
-import { Contact } from "@/components/sections/Contact";
-import { Experience } from "@/components/sections/Experience";
-import { Education } from "@/components/sections/Education";
 import { Hero } from "@/components/sections/Hero";
-import { Projects } from "@/components/sections/Projects";
-import { Articles } from "@/components/sections/Articles";
-import { Skills } from "@/components/sections/Skills";
-import { Testimonials } from "@/components/sections/Testimonials";
-import portfolioData from "@/data/portfolio.json";
+import { Manifesto } from "@/components/sections/Manifesto";
+import { Capability } from "@/components/sections/Capability";
+import { CaseStudies } from "@/components/sections/CaseStudies";
+import { ProofGrid } from "@/components/sections/ProofGrid";
+import { Education } from "@/components/sections/Education";
+import { Contact } from "@/components/sections/Contact";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <About personal={portfolioData.personal} summary={portfolioData.summary} />
-      <Skills skills={portfolioData.skills} />
-      <Experience experience={portfolioData.experience} />
-      <Education education={portfolioData.education} />
-      <Projects projects={portfolioData.projects} />
-      <Articles articles={portfolioData.articles} />
-      <Certifications certifications={portfolioData.certifications} />
-      <Testimonials testimonials={portfolioData.testimonials} />
+      <Manifesto />
+      <Capability />
+      <CaseStudies />
+      <ProofGrid />
+      <Education />
       <Contact />
     </>
   );

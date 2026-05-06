@@ -1,143 +1,149 @@
-'use client';
-import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, ArrowRight, Download, Briefcase, Users } from 'lucide-react';
-import Link from 'next/link';
-import { HeroBackground } from '@/components/HeroBackground';
-import portfolioData from '@/data/portfolio.json';
+"use client";
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.1,
-    },
-  },
-};
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import Link from "next/link";
+import portfolioData from "@/data/portfolio.json";
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 15 },
-  visible: {
-    opacity: 1,
+const wordVariants = {
+  hidden: { y: "110%", opacity: 0 },
+  visible: (i: number) => ({
     y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 80,
-      damping: 12,
-    },
-  },
-};
-
-const typingContainer = {
-  hidden: { opacity: 1 },
-  visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.05,
-      delayChildren: 0.5,
+      duration: 0.9,
+      delay: 0.05 + i * 0.06,
+      ease: [0.22, 1, 0.36, 1] as const,
     },
-  },
-};
-
-const typingLetter = {
-  hidden: { opacity: 0, display: "none" },
-  visible: {
-    opacity: 1,
-    display: "inline-block",
-  },
+  }),
 };
 
 export function Hero() {
-  return (
-    <motion.section
-      id="hero"
-      className="relative min-h-screen flex flex-col justify-center items-center text-left md:text-center overflow-hidden pt-28 pb-16"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={containerVariants}
-    >
-      <HeroBackground />
+  const { personal, summary, domains } = portfolioData;
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], [0, -120]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-      <div className="container mx-auto px-6 relative z-10 flex flex-col items-center">
-        <motion.div variants={itemVariants} className="w-full flex justify-center md:justify-center justify-start mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium shadow-sm transition-all hover:bg-primary/15">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+  const headline = ["End", "to", "end.", "No", "handoffs."];
+
+  return (
+    <section
+      ref={ref}
+      id="hero"
+      className="relative min-h-[100svh] flex flex-col justify-end pt-32 pb-16 md:pb-24 overflow-hidden"
+    >
+      <div className="absolute inset-0 bg-grid bg-grid-fade opacity-40 pointer-events-none" aria-hidden />
+      <div
+        className="absolute -bottom-32 -right-32 w-[42rem] h-[42rem] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(circle at center, hsl(var(--accent) / 0.18), transparent 60%)",
+        }}
+        aria-hidden
+      />
+
+      <motion.div style={{ y, opacity }} className="container-editorial relative">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-wrap items-center gap-x-6 gap-y-2 mb-12 md:mb-16 eyebrow"
+        >
+          <span className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-edtech animate-pulse-soft" aria-hidden />
+            Available for senior full-stack roles
+          </span>
+          <span className="hidden md:inline text-subtle">·</span>
+          <span>{personal.location}</span>
+          <span className="hidden md:inline text-subtle">·</span>
+          <span>{personal.experienceYears} yrs</span>
+        </motion.div>
+
+        <h1 className="font-display text-display-xl text-foreground leading-[0.9] tracking-[-0.045em] text-balance">
+          {headline.map((word, i) => (
+            <span key={i} className="inline-block overflow-hidden align-baseline pr-[0.18em]">
+              <motion.span
+                custom={i}
+                variants={wordVariants}
+                initial="hidden"
+                animate="visible"
+                className="inline-block"
+              >
+                {i === headline.length - 1 ? (
+                  <span className="font-display-soft italic text-accent">{word}</span>
+                ) : (
+                  word
+                )}
+              </motion.span>
             </span>
-            <span>Available for Consulting Opportunities</span>
+          ))}
+        </h1>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10"
+        >
+          <p className="md:col-span-6 lg:col-span-5 text-lead text-muted-foreground text-pretty">
+            {summary}
+          </p>
+          <div className="md:col-span-6 md:col-start-8 lg:col-span-4 lg:col-start-9 flex flex-col gap-3">
+            <span className="eyebrow">Operating across</span>
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-2 font-mono text-[0.85rem]">
+              {domains.map((d) => (
+                <li key={d.id} className="flex items-center gap-2 text-foreground">
+                  <span
+                    className="h-1.5 w-1.5 rounded-full"
+                    style={{ background: `hsl(var(--${d.id}))` }}
+                    aria-hidden
+                  />
+                  {d.name}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-4 flex items-center gap-3">
+              <Link
+                href="#work"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-foreground text-background text-[0.85rem] hover:opacity-90 transition-opacity"
+              >
+                See the work <span aria-hidden>→</span>
+              </Link>
+              <Link
+                href="#contact"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-subtle text-foreground text-[0.85rem] hover:border-foreground/40 transition-colors"
+              >
+                Contact
+              </Link>
+            </div>
           </div>
         </motion.div>
+      </motion.div>
 
-        <div className="w-full text-left md:text-center mb-6">
-          <motion.h1
-            className="font-space-grotesk text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight text-foreground mb-4 flex flex-wrap justify-start md:justify-center"
-            variants={typingContainer}
-          >
-            {portfolioData.personal.name.split("").map((char, index) => (
-              <motion.span key={index} variants={typingLetter}>
-                {char === " " ? "\u00A0" : char}
-              </motion.span>
-            ))}
-            <motion.span
-              variants={{
-                hidden: { opacity: 0 },
-                visible: { opacity: [0, 1, 0], transition: { repeat: Infinity, duration: 0.8, ease: "linear" } }
-              }}
-              className="inline-block w-[4px] h-[1em] bg-primary ml-1"
-            />
-          </motion.h1>
-          <motion.h2 variants={itemVariants} className="text-2xl sm:text-3xl md:text-4xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-cyan-500 mb-6 pb-2">
-            {portfolioData.personal.title}
-          </motion.h2>
-          <motion.p variants={itemVariants} className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed font-light">
-            Architecting and building scalable cloud-native microservices and distributed systems.
-            Over <strong className="font-medium text-foreground">{portfolioData.personal.experienceYears}</strong> of experience engineering high-performance applications for the modern web.
-          </motion.p>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4, duration: 0.8 }}
+        className="container-editorial relative mt-16 md:mt-24 flex items-end justify-between"
+      >
+        <div className="flex items-center gap-3 font-mono text-[0.72rem] text-muted-foreground">
+          <span className="kbd">⌘K</span>
+          <span>open console — try <span className="text-foreground">whoami</span></span>
         </div>
-
-        <motion.div
-          className="flex flex-col sm:flex-row items-start sm:items-center justify-center gap-4 mb-12 w-full md:w-auto"
-          variants={itemVariants}
-        >
-          <Link
-            href="#projects"
-            className="group w-full sm:w-auto relative inline-flex items-center justify-center px-8 py-3.5 bg-primary text-primary-foreground font-semibold rounded-md shadow-md transition-all duration-300 hover:bg-primary/90 hover:-translate-y-0.5"
-          >
-            <span>View Case Studies</span>
-            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </Link>
-          <Link
-            href="#contact"
-            className="w-full sm:w-auto px-8 py-3.5 bg-secondary text-secondary-foreground font-medium rounded-md border border-border/50 hover:bg-secondary/80 hover:border-border transition-all duration-300"
-          >
-            Get in Touch
-          </Link>
-        </motion.div>
-
-        <motion.div
-          className="flex items-center justify-start md:justify-center gap-6 w-full"
-          variants={itemVariants}
-        >
-          {portfolioData.personal.github && (
-            <a href={portfolioData.personal.github} target="_blank" rel="noopener noreferrer" className="p-2 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-full transition-all">
-              <Github className="w-6 h-6" />
-              <span className="sr-only">GitHub</span>
-            </a>
-          )}
-          {portfolioData.personal.linkedin && (
-            <a href={portfolioData.personal.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-full transition-all" aria-label="LinkedIn">
-              <Linkedin className="w-6 h-6" />
-            </a>
-          )}
-          {portfolioData.personal.email && (
-            <a href={`mailto:${portfolioData.personal.email}`} className="p-2 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-full transition-all" aria-label="Email">
-              <Mail className="w-6 h-6" />
-            </a>
-          )}
-        </motion.div>
-      </div>
-    </motion.section>
+        <div className="flex items-end gap-3 font-mono text-[0.72rem] text-muted-foreground">
+          <span>scroll</span>
+          <motion.span
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="block w-px h-8 bg-foreground/40"
+            aria-hidden
+          />
+        </div>
+      </motion.div>
+    </section>
   );
 }

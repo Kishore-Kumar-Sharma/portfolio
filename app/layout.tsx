@@ -1,56 +1,72 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
-import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { FloatingActions } from "@/components/FloatingActions";
+import { CommandPalette } from "@/components/CommandPalette";
 
-const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"], variable: '--font-space-grotesk' });
-const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "700"], variable: '--font-jetbrains-mono' });
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
 
 const { baseUrl } = siteConfig;
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0A0A0B" },
+    { media: "(prefers-color-scheme: light)", color: "#FAF8F4" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Kishore Kumar Sharma | Senior Full Stack Engineer — Available for Hire",
-    template: "%s | Kishore Kumar Sharma",
+    default: "Kishore Kumar Sharma — Senior Full Stack Engineer",
+    template: "%s · Kishore Kumar Sharma",
   },
   description:
-    "Senior Full Stack Engineer (6.5+ yrs) specializing in Java/Spring Boot, NodeJS/NestJS, React, Angular, AWS & microservices. Available for full-time roles, contract work & consulting. Proven across Telecom, FinTech, GovTech & EdTech.",
+    "I ship end-to-end. Six and a half years across telecom, fintech, govtech and edtech — designing schemas, writing services, and building the UIs that consume them. Backend-deep by training, full-stack by delivery.",
   keywords: [
-    // Identity
     "Kishore Kumar Sharma",
-    "Kishore Kumar Sharma portfolio",
-    // Hiring signals
-    "Senior Full Stack Engineer for hire",
-    "Full Stack Developer available for hire",
-    "Software Engineer available India",
-    "Hire Full Stack Developer India",
-    "Remote Full Stack Developer",
-    "Freelance Full Stack Engineer",
-    "Contract Software Engineer India",
-    "Full Stack Consultant",
-    // Tech stack
-    "Java Spring Boot developer",
-    "NodeJS NestJS developer",
-    "React Angular developer",
-    "MERN Stack developer",
-    "MEAN Stack developer",
+    "Senior Full Stack Engineer",
+    "Full Stack Engineer for hire",
+    "End-to-end full stack developer",
+    "MERN Stack engineer",
+    "MEAN Stack engineer",
+    "React Node.js engineer",
+    "Angular Spring Boot developer",
+    "Java Spring Boot engineer",
+    "NodeJS NestJS engineer",
+    "Microservices engineer",
+    "Distributed systems engineer",
     "AWS Cloud engineer",
-    "Microservices architect",
-    "Docker Kubernetes developer",
-    // Location
+    "Scalable backend developer India",
     "Software Engineer Noida",
-    "Full Stack Developer Delhi NCR",
-    "Remote developer India",
-    // Role signals
-    "Senior Software Engineer",
-    "Backend Engineer Java",
-    "Full Stack Portfolio 2025",
     "Tech Lead India",
+    "AI-augmented developer",
+    "Full stack architect",
   ],
   authors: [{ name: "Kishore Kumar Sharma", url: baseUrl }],
   creator: "Kishore Kumar Sharma",
@@ -66,31 +82,29 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  alternates: {
-    canonical: baseUrl,
-  },
+  alternates: { canonical: baseUrl },
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: baseUrl,
-    siteName: "Kishore Kumar Sharma — Portfolio",
-    title: "Kishore Kumar Sharma | Senior Full Stack Engineer — Available for Hire",
+    siteName: "Kishore Kumar Sharma",
+    title: "Kishore Kumar Sharma — Senior Full Stack Engineer",
     description:
-      "6.5+ years building production-grade full-stack systems. Open to full-time, contract & consulting roles. Java, Spring Boot, NodeJS, React, Angular, AWS.",
+      "End to end. No handoffs. Six and a half years shipping across telecom, fintech, govtech and edtech — schema to surface, with measurable lift.",
     images: [
       {
         url: "/profile-picture.jpg",
         width: 1200,
         height: 630,
-        alt: "Kishore Kumar Sharma — Senior Full Stack Engineer, Available for Hire",
+        alt: "Kishore Kumar Sharma — Senior Full Stack Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kishore Kumar Sharma | Senior Full Stack Engineer — Available for Hire",
+    title: "Kishore Kumar Sharma — Senior Full Stack Engineer",
     description:
-      "6.5+ years across Java, Node.js, React, Angular & AWS. Open to full-time, contract & consulting. Let's build something great.",
+      "End to end. No handoffs. 35+ enterprise integrations across four verticals — every one shipped with measurable lift.",
     images: ["/profile-picture.jpg"],
     creator: "@kishoresharma",
   },
@@ -99,9 +113,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -110,6 +122,8 @@ export default function RootLayout({
     url: baseUrl,
     email: "kishoresharma914@gmail.com",
     image: `${baseUrl}/profile-picture.jpg`,
+    description:
+      "Senior full-stack engineer who ships end-to-end across telecom, fintech, govtech and edtech. Backend-deep by training; full-stack by delivery.",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Noida",
@@ -121,19 +135,30 @@ export default function RootLayout({
       "https://github.com/kishore-kumar-sharma",
     ],
     knowsAbout: [
-      "Java", "Spring Boot", "NodeJS", "NestJS", "React", "Angular",
-      "MERN Stack", "MEAN Stack", "AWS", "Microservices", "Docker", "Kubernetes",
+      "Full Stack Development",
+      "End-to-end Feature Delivery",
+      "Java",
+      "Spring Boot",
+      "Node.js",
+      "NestJS",
+      "React",
+      "Angular",
+      "React Native",
+      "Microservices",
+      "Distributed Systems",
+      "AWS",
+      "System Design",
+      "API Architecture",
     ],
   };
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* Google Analytics 4 — only in production */}
         {process.env.NODE_ENV === "production" && (
           <>
             <script
@@ -153,14 +178,19 @@ export default function RootLayout({
           </>
         )}
       </head>
-      <body className={`${jetbrainsMono.variable} ${spaceGrotesk.variable} font-mono bg-background text-foreground`}>
+      <body className="bg-background text-foreground antialiased">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:px-4 focus:py-2 focus:rounded-md focus:bg-foreground focus:text-background"
+          >
+            Skip to content
+          </a>
           <Navigation />
-          <main className="pt-20">
-            {children}
-          </main>
+          <main id="main">{children}</main>
           <Footer />
           <FloatingActions />
+          <CommandPalette />
         </ThemeProvider>
       </body>
     </html>

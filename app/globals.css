@@ -4,77 +4,74 @@
 
 @layer base {
   :root {
-    /* Base Background - White */
-    --background: 0 0% 100%;
-    /* Base Foreground - Dark Gray (21:1 Contrast) */
-    --foreground: 224 71.4% 4.1%;
-    
-    --card: 0 0% 100%;
-    --card-foreground: 224 71.4% 4.1%;
-    
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
-    
-    /* Primary needs to be darker to pass 4.5:1 against bg */
-    --primary: 262.1 83.3% 43%; 
-    --primary-foreground: 210 20% 98%;
-    
-    /* Secondary Background slightly off-white */
-    --secondary: 220 14.3% 95.9%;
-    /* Secondary Text darkened to pass 4.5:1 against secondary bg */
-    --secondary-foreground: 220 8.9% 38%;
-    
-    --muted: 220 14.3% 95.9%;
-    /* Muted text darkened for 4.5:1 readability */
-    --muted-foreground: 220 8.9% 38%;
-    
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220 8.9% 38%;
-    
-    /* Destructive darkened to pass 4.5:1 against white */
-    --destructive: 0 84.2% 43%;
-    --destructive-foreground: 210 20% 98%;
-    
-    --border: 220 13% 85%;
-    --input: 220 13% 85%;
-    --ring: 262.1 83.3% 43%;
-    --radius: 0.75rem;
+    /* Light mode — editorial cream */
+    --background: 40 30% 97%;
+    --foreground: 240 10% 6%;
+    --surface: 40 20% 94%;
+    --subtle: 240 8% 80%;
+    --muted: 40 15% 92%;
+    --muted-foreground: 240 6% 38%;
+
+    --card: 40 30% 97%;
+    --card-foreground: 240 10% 6%;
+    --popover: 40 30% 97%;
+    --popover-foreground: 240 10% 6%;
+
+    --primary: 262 78% 48%;
+    --primary-foreground: 40 30% 98%;
+    --secondary: 40 15% 92%;
+    --secondary-foreground: 240 8% 25%;
+
+    --accent: 262 78% 48%;
+    --accent-foreground: 40 30% 98%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 40 30% 98%;
+
+    --border: 240 8% 85%;
+    --input: 240 8% 85%;
+    --ring: 262 78% 48%;
+    --radius: 0.5rem;
+
+    /* Domain siblings */
+    --telecom: 200 55% 55%;
+    --fintech: 36 60% 55%;
+    --govtech: 12 45% 58%;
+    --edtech: 130 25% 50%;
   }
 
   .dark {
-    /* Base Background - Dark */
-    --background: 224 71.4% 4.1%;
-    /* Base Foreground - Off White (20:1 Contrast) */
-    --foreground: 210 20% 98%;
-    
-    --card: 224 71.4% 4.1%;
-    --card-foreground: 210 20% 98%;
-    
-    --popover: 224 71.4% 4.1%;
-    --popover-foreground: 210 20% 98%;
-    
-    /* Primary lightened to pass 4.5:1 against dark bg AND match theme branding */
-    --primary: 262.1 83.3% 75%;
-    /* Dark text on light primary button */
-    --primary-foreground: 224 71.4% 4.1%;
-    
-    --secondary: 215 27.9% 16.9%;
-    --secondary-foreground: 210 20% 98%;
-    
-    --muted: 215 27.9% 18%;
-    /* Muted text lightened to pass 4.5:1 against dark backgrounds */
-    --muted-foreground: 215 15% 72%;
-    
-    --accent: 215 27.9% 18%;
-    --accent-foreground: 210 20% 98%;
-    
-    /* Destructive lightened slightly for better contrast footprint if used for text */
-    --destructive: 0 62.8% 50%;
-    --destructive-foreground: 210 40% 98%;
-    
-    --border: 215 27.9% 25%;
-    --input: 215 27.9% 25%;
-    --ring: 262.1 83.3% 75%;
+    /* Dark mode — near-black with warm cream */
+    --background: 240 10% 4%;
+    --foreground: 40 20% 94%;
+    --surface: 240 8% 8%;
+    --subtle: 240 6% 22%;
+    --muted: 240 6% 12%;
+    --muted-foreground: 240 5% 65%;
+
+    --card: 240 8% 6%;
+    --card-foreground: 40 20% 94%;
+    --popover: 240 8% 6%;
+    --popover-foreground: 40 20% 94%;
+
+    --primary: 262 78% 72%;
+    --primary-foreground: 240 10% 4%;
+    --secondary: 240 8% 12%;
+    --secondary-foreground: 40 20% 94%;
+
+    --accent: 262 78% 72%;
+    --accent-foreground: 240 10% 4%;
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 40 20% 94%;
+
+    --border: 240 6% 16%;
+    --input: 240 6% 16%;
+    --ring: 262 78% 72%;
+
+    /* Domain siblings — slightly lighter for dark mode contrast */
+    --telecom: 200 50% 72%;
+    --fintech: 36 55% 70%;
+    --govtech: 12 45% 70%;
+    --edtech: 130 22% 65%;
   }
 }
 
@@ -82,45 +79,90 @@
   * {
     @apply border-border;
   }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply bg-background text-foreground font-sans;
+    font-feature-settings: "ss01", "cv11", "calt";
+  }
+  ::selection {
+    background: hsl(var(--accent) / 0.35);
+    color: hsl(var(--foreground));
+  }
+}
+
+@layer components {
+  .container-editorial {
+    @apply mx-auto w-full max-w-[1280px] px-5 md:px-10 lg:px-14;
+  }
+  .container-narrow {
+    @apply mx-auto w-full max-w-[820px] px-5 md:px-10;
+  }
+  .eyebrow {
+    @apply font-mono text-eyebrow uppercase text-muted-foreground;
+  }
+  .rule {
+    @apply h-px w-full bg-subtle;
+  }
+  .kbd {
+    @apply inline-flex items-center justify-center min-w-[1.5rem] h-6 px-1.5 rounded-md
+           border border-subtle bg-surface font-mono text-[0.7rem] text-muted-foreground;
+  }
+  /* Number-tabular: keeps metrics aligned on count-up */
+  .num {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum", "cv11";
+  }
+  /* Fraunces optical-size + soft axis for headlines */
+  .font-display {
+    font-variation-settings: "opsz" 144, "SOFT" 50, "WONK" 0;
+  }
+  .font-display-soft {
+    font-variation-settings: "opsz" 144, "SOFT" 100, "WONK" 1;
   }
 }
 
 @layer utilities {
-    .bg-dot-pattern {
-        @apply animate-dot-scroll;
-        background-image: radial-gradient(circle at 2px 2px, hsl(var(--foreground) / 0.25) 2px, transparent 0);
-        background-size: 2rem 2rem;
-    }
+  /* Subtle grid background — used sparingly */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, hsl(var(--subtle) / 0.6) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--subtle) / 0.6) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  .bg-grid-fade {
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
 }
 
 /* ─── Themed Scrollbar ─────────────────────────────────── */
-/* Webkit (Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
-
 ::-webkit-scrollbar-track {
-  background: hsl(var(--background));
+  background: transparent;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--primary) / 0.5);
+  background: hsl(var(--subtle));
   border-radius: 99px;
-  transition: background 0.2s ease;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary) / 0.85);
+  background: hsl(var(--muted-foreground) / 0.5);
 }
-
-/* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: hsl(var(--primary) / 0.5) hsl(var(--background));
+  scrollbar-color: hsl(var(--subtle)) transparent;
 }
 
 /* ─── Reduced Motion ───────────────────────────────────── */
