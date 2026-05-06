@@ -68,14 +68,6 @@ export function Contact() {
           <Reveal delay={0.16}>
             <dl className="mt-10 space-y-5 font-mono text-[0.85rem]">
               <div className="flex items-baseline gap-3">
-                <dt className="text-muted-foreground w-24 shrink-0">email</dt>
-                <dd>
-                  <a href={`mailto:${personal.email}`} className="text-foreground hover:text-accent transition-colors">
-                    {personal.email}
-                  </a>
-                </dd>
-              </div>
-              <div className="flex items-baseline gap-3">
                 <dt className="text-muted-foreground w-24 shrink-0">linkedin</dt>
                 <dd>
                   <a href={personal.linkedin} target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-accent transition-colors">

@@ -120,7 +120,6 @@ export default function RootLayout({
     name: "Kishore Kumar Sharma",
     jobTitle: "Senior Full Stack Engineer",
     url: baseUrl,
-    email: "kishoresharma914@gmail.com",
     image: `${baseUrl}/profile-picture.jpg`,
     description:
       "Senior full-stack engineer who ships end-to-end across telecom, fintech, govtech and edtech. Backend-deep by training; full-stack by delivery.",

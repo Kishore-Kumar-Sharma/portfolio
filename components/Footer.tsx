@@ -28,9 +28,9 @@ export function Footer() {
             <p className="eyebrow mb-4">Direct</p>
             <ul className="space-y-2 text-[0.92rem] text-muted-foreground">
               <li>
-                <a href={`mailto:${personal.email}`} className="hover:text-foreground transition-colors">
-                  {personal.email}
-                </a>
+                <Link href="#contact" className="hover:text-foreground transition-colors">
+                  via the contact form →
+                </Link>
               </li>
               <li className="font-mono text-[0.8rem]">{personal.location}</li>
             </ul>
@@ -47,11 +47,6 @@ export function Footer() {
               <li>
                 <a href={personal.github} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
                   GitHub ↗
-                </a>
-              </li>
-              <li>
-                <a href={personal.naukri} target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors">
-                  Naukri ↗
                 </a>
               </li>
             </ul>

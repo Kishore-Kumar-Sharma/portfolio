@@ -35,7 +35,9 @@ export function CommandPalette() {
 
   const commands: Cmd[] = useMemo(
     () => [
-      { id: "nav-work", label: "open work", hint: "scroll · case studies", group: "navigate", run: () => go("work") },
+      { id: "nav-work", label: "open work", hint: "/work · all case studies", group: "navigate", run: () => { window.location.href = "/work"; close(); } },
+      { id: "nav-notes", label: "open writing", hint: "/notes · long-form", group: "navigate", run: () => { window.location.href = "/notes"; close(); } },
+      { id: "nav-uses", label: "open uses", hint: "/uses · the toolkit", group: "navigate", run: () => { window.location.href = "/uses"; close(); } },
       { id: "nav-cap", label: "open capability", hint: "scroll · skills", group: "navigate", run: () => go("capability") },
       { id: "nav-proof", label: "open proof", hint: "scroll · testimonials + awards", group: "navigate", run: () => go("proof") },
       { id: "nav-contact", label: "open contact", hint: "scroll · get in touch", group: "navigate", run: () => go("contact") },
@@ -45,7 +47,7 @@ export function CommandPalette() {
       { id: "sys-grep", label: "grep skills java", hint: "jump to capability", group: "system", run: () => go("capability") },
       { id: "ext-linkedin", label: "open linkedin", hint: "↗ external", group: "external", run: () => { window.open(portfolioData.personal.linkedin, "_blank", "noopener,noreferrer"); close(); } },
       { id: "ext-github", label: "open github", hint: "↗ external", group: "external", run: () => { window.open(portfolioData.personal.github, "_blank", "noopener,noreferrer"); close(); } },
-      { id: "ext-mail", label: "send mail", hint: portfolioData.personal.email, group: "external", run: () => { window.location.href = `mailto:${portfolioData.personal.email}`; close(); } },
+      { id: "open-contact", label: "open contact form", hint: "say hi via the form", group: "external", run: () => go("contact") },
     ],
     [go, close]
   );

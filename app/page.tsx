@@ -1,5 +1,6 @@
 import { Hero } from "@/components/sections/Hero";
 import { Manifesto } from "@/components/sections/Manifesto";
+import { TestimonialBand } from "@/components/TestimonialBand";
 import { Capability } from "@/components/sections/Capability";
 import { CaseStudies } from "@/components/sections/CaseStudies";
 import { ProofGrid } from "@/components/sections/ProofGrid";
@@ -11,6 +12,7 @@ export default function Home() {
     <>
       <Hero />
       <Manifesto />
+      <TestimonialBand />
       <Capability />
       <CaseStudies />
       <ProofGrid />

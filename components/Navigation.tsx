@@ -6,10 +6,10 @@ import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/utils";
 
 const NAV = [
-  { href: "#work", label: "Work" },
-  { href: "#capability", label: "Capability" },
-  { href: "#proof", label: "Proof" },
-  { href: "#contact", label: "Contact" },
+  { href: "/work", label: "Work" },
+  { href: "/notes", label: "Writing" },
+  { href: "/uses", label: "Uses" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function Navigation() {
