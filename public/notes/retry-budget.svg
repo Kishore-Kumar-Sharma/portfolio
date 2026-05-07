@@ -1,0 +1,72 @@
+<svg viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t3">
+  <title id="t3">Retry budget vs unbudgeted cascade</title>
+  <style>
+    .text{fill:#1a1a24;font-family:Inter,system-ui,sans-serif;font-size:13px}
+    .lead{fill:#1a1a24;font-family:Inter,system-ui,sans-serif;font-size:14px}
+    .label{fill:#5c5c66;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .mono{fill:#1a1a24;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px}
+    .acc{fill:#6028d9;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:9.5px}
+    .danger{fill:#c14545;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .s{stroke:#1a1a24;fill:none;stroke-width:1.25}
+    .sm{stroke:#b3b3bd;fill:none;stroke-width:1;stroke-dasharray:4 4}
+    .dg{stroke:#c14545;fill:none;stroke-width:1.25}
+    .a{stroke:#6028d9;fill:none;stroke-width:1.5}
+    .fa{fill:#6028d9}
+    .ft{fill:#1a1a24}
+    .fs{fill:#f5f1e6}
+    @media (prefers-color-scheme: dark){
+      .text,.lead,.mono,.ft{fill:#e8e4d8}
+      .label{fill:#9c9ca6}.acc{fill:#b89be8}.danger{fill:#d97a7a}
+      .s{stroke:#e8e4d8}.sm{stroke:#4a4a55}.dg{stroke:#d97a7a}.a{stroke:#b89be8}
+      .fa{fill:#b89be8}.fs{fill:#1a1a24}
+    }
+  </style>
+
+  <text x="40" y="40" class="label">UNBUDGETED · A retries 3× · B retries 3×</text>
+  <text x="40" y="62" class="lead">9 calls land on C from one logical request</text>
+
+  <rect x="60" y="100" width="100" height="44" rx="3" class="s"/>
+  <text x="110" y="127" text-anchor="middle" class="mono">a</text>
+  <rect x="320" y="100" width="100" height="44" rx="3" class="s"/>
+  <text x="370" y="127" text-anchor="middle" class="mono">b</text>
+  <rect x="600" y="100" width="100" height="44" rx="3" class="s"/>
+  <text x="650" y="127" text-anchor="middle" class="mono">c</text>
+
+  <path d="M160 122 Q240 80 320 122" class="dg"/>
+  <line x1="160" y1="122" x2="320" y2="122" class="dg"/>
+  <path d="M160 122 Q240 164 320 164" class="dg"/>
+
+  <path d="M420 122 Q510 60 600 122" class="dg"/>
+  <path d="M420 122 Q510 90 600 130" class="dg"/>
+  <line x1="420" y1="122" x2="600" y2="122" class="dg"/>
+  <path d="M420 122 Q510 154 600 130" class="dg"/>
+  <path d="M420 122 Q510 184 600 144" class="dg"/>
+  <text x="510" y="200" text-anchor="middle" class="danger">9× LOAD ON C</text>
+
+  <line x1="40" y1="240" x2="760" y2="240" class="sm"/>
+
+  <text x="40" y="282" class="label">BUDGETED · End-to-end deadline · circuit breaker on threshold</text>
+  <text x="40" y="304" class="lead">1–2 calls reach C. The system fails clean instead of slow.</text>
+
+  <rect x="60" y="340" width="100" height="44" rx="3" class="s"/>
+  <text x="110" y="367" text-anchor="middle" class="mono">a</text>
+  <rect x="320" y="340" width="100" height="44" rx="3" class="s"/>
+  <text x="370" y="367" text-anchor="middle" class="mono">b</text>
+  <rect x="600" y="340" width="100" height="44" rx="3" class="s"/>
+  <text x="650" y="367" text-anchor="middle" class="mono">c</text>
+
+  <line x1="160" y1="362" x2="320" y2="362" class="a"/>
+  <polygon points="320,362 310,357 310,367" class="fa"/>
+  <line x1="420" y1="362" x2="600" y2="362" class="a"/>
+  <polygon points="600,362 590,357 590,367" class="fa"/>
+
+  <rect x="200" y="349" width="80" height="22" rx="3" class="fs"/>
+  <rect x="200" y="349" width="80" height="22" rx="3" class="a"/>
+  <text x="240" y="364" text-anchor="middle" class="acc">deadline 800ms</text>
+
+  <rect x="470" y="349" width="80" height="22" rx="3" class="fs"/>
+  <rect x="470" y="349" width="80" height="22" rx="3" class="a"/>
+  <text x="510" y="364" text-anchor="middle" class="acc">remaining 420ms</text>
+
+  <text x="400" y="430" text-anchor="middle" class="label">EACH HOP CHECKS THE DEADLINE BEFORE RETRYING</text>
+</svg>

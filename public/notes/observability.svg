@@ -1,0 +1,69 @@
+<svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t4">
+  <title id="t4">Observability minimum viable trio</title>
+  <style>
+    .text{fill:#1a1a24;font-family:Inter,system-ui,sans-serif;font-size:13px}
+    .label{fill:#5c5c66;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .mono{fill:#1a1a24;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px}
+    .acc{fill:#6028d9;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em}
+    .small{fill:#5c5c66;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px}
+    .accSmall{fill:#6028d9;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10px}
+    .s{stroke:#1a1a24;fill:none;stroke-width:1.25}
+    .sm{stroke:#b3b3bd;fill:none;stroke-width:1;stroke-dasharray:4 4}
+    .smSolid{stroke:#b3b3bd;fill:none;stroke-width:1}
+    .a{stroke:#6028d9;fill:none;stroke-width:1.5}
+    @media (prefers-color-scheme: dark){
+      .text,.mono{fill:#e8e4d8}
+      .label,.small{fill:#9c9ca6}.acc,.accSmall{fill:#b89be8}
+      .s{stroke:#e8e4d8}.sm,.smSolid{stroke:#4a4a55}.a{stroke:#b89be8}
+    }
+  </style>
+
+  <text x="40" y="36" class="label">THE MINIMUM VIABLE TRIO</text>
+
+  <!-- Panel 1: structured logs -->
+  <rect x="40" y="60" width="230" height="240" rx="6" class="s"/>
+  <text x="55" y="85" class="acc">STRUCTURED LOGS</text>
+  <line x1="55" y1="98" x2="255" y2="98" class="sm"/>
+  <text x="55" y="120" class="label">request_id</text>
+  <text x="55" y="140" class="mono">7a3f-9e4c-...</text>
+  <text x="55" y="170" class="label">SVC A → B → C</text>
+  <line x1="55" y1="184" x2="180" y2="184" class="smSolid"/>
+  <line x1="55" y1="200" x2="220" y2="200" class="smSolid"/>
+  <line x1="55" y1="216" x2="160" y2="216" class="smSolid"/>
+  <line x1="55" y1="232" x2="240" y2="232" class="smSolid"/>
+  <text x="55" y="268" class="label">ONE ID THREADED THROUGH</text>
+  <text x="55" y="284" class="label">EVERY HOP</text>
+
+  <!-- Panel 2: latency p50/95/99 -->
+  <rect x="285" y="60" width="230" height="240" rx="6" class="s"/>
+  <text x="300" y="85" class="acc">LATENCY p50/95/99</text>
+  <line x1="300" y1="98" x2="500" y2="98" class="sm"/>
+
+  <polyline points="305,260 330,250 360,255 390,240 420,245 460,230 490,225" class="s"/>
+  <text x="495" y="228" class="small">p50</text>
+
+  <polyline points="305,225 330,210 360,220 390,200 420,210 460,190 490,180" class="s"/>
+  <text x="495" y="183" class="small">p95</text>
+
+  <polyline points="305,180 330,160 360,170 390,140 420,155 460,130 490,120" class="a"/>
+  <text x="495" y="123" class="accSmall">p99</text>
+
+  <text x="305" y="285" class="label">REFRESHED IN SECONDS</text>
+
+  <!-- Panel 3: error rate per dependency -->
+  <rect x="530" y="60" width="230" height="240" rx="6" class="s"/>
+  <text x="545" y="85" class="acc">ERROR RATE BY DEP</text>
+  <line x1="545" y1="98" x2="745" y2="98" class="sm"/>
+
+  <text x="545" y="135" class="small">db</text>
+  <rect x="600" y="123" width="40" height="14" class="s"/>
+  <text x="545" y="170" class="small">queue</text>
+  <rect x="600" y="158" width="60" height="14" class="s"/>
+  <text x="545" y="205" class="small">stripe</text>
+  <rect x="600" y="193" width="120" height="14" class="a"/>
+  <text x="730" y="205" class="accSmall">!</text>
+  <text x="545" y="240" class="small">cache</text>
+  <rect x="600" y="228" width="30" height="14" class="s"/>
+
+  <text x="545" y="285" class="label">KNOW THE UPSTREAM FIRST</text>
+</svg>
