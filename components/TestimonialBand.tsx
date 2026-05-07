@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import portfolioData from "@/data/portfolio.json";
+import { SmoothAnchor } from "@/components/SmoothAnchor";
 
 const TESTIMONIALS = portfolioData.testimonials;
 const ROTATE_MS = 8000;
@@ -120,9 +121,9 @@ export function TestimonialBand() {
 
         <p className="mt-6 font-mono text-[0.72rem] text-muted-foreground">
           {TESTIMONIALS.length} reviews from peers, managers, and direct reports.{" "}
-          <a href="#proof" className="text-foreground hover:text-accent transition-colors">
+          <SmoothAnchor href="#proof" className="text-foreground hover:text-accent transition-colors">
             see them all in detail →
-          </a>
+          </SmoothAnchor>
         </p>
       </div>
     </section>

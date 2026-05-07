@@ -1,5 +1,6 @@
 import Link from "next/link";
 import portfolioData from "@/data/portfolio.json";
+import { SmoothAnchor } from "@/components/SmoothAnchor";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -15,22 +16,22 @@ export function Footer() {
             <p className="font-display text-display-sm text-balance text-foreground">
               If you&apos;re building something hard, let&apos;s talk.
             </p>
-            <Link
+            <SmoothAnchor
               href="#contact"
               className="mt-8 inline-flex items-center gap-2 text-foreground border-b border-foreground pb-1 hover:border-accent hover:text-accent transition-colors"
             >
               Start a conversation
               <span aria-hidden>→</span>
-            </Link>
+            </SmoothAnchor>
           </div>
 
           <div className="md:col-span-3">
             <p className="eyebrow mb-4">Direct</p>
             <ul className="space-y-2 text-[0.92rem] text-muted-foreground">
               <li>
-                <Link href="#contact" className="hover:text-foreground transition-colors">
+                <SmoothAnchor href="#contact" className="hover:text-foreground transition-colors">
                   via the contact form →
-                </Link>
+                </SmoothAnchor>
               </li>
               <li className="font-mono text-[0.8rem]">{personal.location}</li>
             </ul>

@@ -5,7 +5,7 @@ import { listWorkSlugs, loadWork } from "@/lib/work";
 import { siteConfig } from "@/config/site";
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 const DOMAIN_LABEL: Record<string, string> = {
@@ -19,7 +19,8 @@ export async function generateStaticParams() {
   return listWorkSlugs().map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const work = loadWork(params.slug);
   if (!work) return {};
   const url = `${siteConfig.baseUrl}/work/${work.slug}`;
@@ -41,7 +42,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function WorkPage({ params }: Props) {
+export default async function WorkPage(props: Props) {
+  const params = await props.params;
   const work = loadWork(params.slug);
   if (!work) notFound();
 

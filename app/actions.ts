@@ -2,7 +2,7 @@
 
 import { z } from 'zod'
 import nodemailer from 'nodemailer'
-import { headers } from 'next/headers'
+import { headers } from 'next/headers';
 
 const contactFormSchema = z.object({
   name: z.string().min(1, 'Name is required').max(100),
@@ -16,8 +16,8 @@ const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX = 3;
 const submissions = new Map<string, number[]>();
 
-function getClientIp(): string {
-  const h = headers();
+async function getClientIp(): Promise<string> {
+  const h = await headers();
   const forwarded = h.get('x-forwarded-for');
   if (forwarded) return forwarded.split(',')[0].trim();
   return h.get('x-real-ip') ?? 'unknown';
@@ -46,7 +46,7 @@ function escapeHtml(input: string): string {
 }
 
 export async function submitContactForm(prevState: any, formData: FormData) {
-  if (isRateLimited(getClientIp())) {
+  if (isRateLimited(await getClientIp())) {
     return {
       message: 'Too many submissions. Please wait a minute and try again.',
       success: false,

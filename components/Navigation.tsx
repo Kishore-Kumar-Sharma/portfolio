@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/lib/utils";
+import { SmoothAnchor } from "@/components/SmoothAnchor";
 
 const NAV = [
   { href: "/work", label: "Work" },
@@ -72,13 +73,13 @@ export function Navigation() {
             <span className="kbd">⌘K</span>
           </button>
           <ThemeToggle />
-          <Link
-            href="#contact"
+          <SmoothAnchor
+            href="/#contact"
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-foreground text-background text-[0.82rem] hover:opacity-90 transition-opacity"
           >
             Get in touch
             <span aria-hidden>→</span>
-          </Link>
+          </SmoothAnchor>
         </div>
       </nav>
     </header>

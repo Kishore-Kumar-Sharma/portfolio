@@ -175,24 +175,13 @@ export default function UsesPage() {
           ))}
         </div>
 
-        <div className="mt-20 pt-6 border-t border-subtle/40 flex items-center justify-between font-mono text-[0.78rem]">
+        <div className="mt-20 pt-6 border-t border-subtle/40 font-mono text-[0.78rem]">
           <Link
             href="/"
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
             ← back to portfolio
           </Link>
-          <span className="text-muted-foreground">
-            inspired by{" "}
-            <a
-              href="https://uses.tech"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors"
-            >
-              uses.tech
-            </a>
-          </span>
         </div>
       </div>
     </div>

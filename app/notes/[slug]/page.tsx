@@ -5,14 +5,15 @@ import { listSlugs, loadNote } from "@/lib/notes";
 import { siteConfig } from "@/config/site";
 
 interface Props {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
   return listSlugs().map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const note = loadNote(params.slug);
   if (!note) return {};
   const url = `${siteConfig.baseUrl}/notes/${note.slug}`;
@@ -37,7 +38,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function NotePage({ params }: Props) {
+export default async function NotePage(props: Props) {
+  const params = await props.params;
   const note = loadNote(params.slug);
   if (!note) notFound();
 

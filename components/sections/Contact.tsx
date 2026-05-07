@@ -1,12 +1,12 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { submitContactForm } from "@/app/actions";
 import portfolioData from "@/data/portfolio.json";
 import { Section } from "@/components/editorial/Section";
 import { Reveal } from "@/components/editorial/Reveal";
-import { useEffect, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 
 const initialState = {
   message: "",
@@ -38,7 +38,7 @@ function SubmitButton() {
 
 export function Contact() {
   const { personal } = portfolioData;
-  const [state, formAction] = useFormState(submitContactForm, initialState);
+  const [state, formAction] = useActionState(submitContactForm, initialState);
   const [message, setMessage] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 

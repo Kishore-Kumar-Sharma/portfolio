@@ -2,8 +2,8 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import Link from "next/link";
 import portfolioData from "@/data/portfolio.json";
+import { SmoothAnchor } from "@/components/SmoothAnchor";
 
 const wordVariants = {
   hidden: { y: "110%", opacity: 0 },
@@ -107,18 +107,18 @@ export function Hero() {
               ))}
             </ul>
             <div className="mt-4 flex items-center gap-3">
-              <Link
+              <SmoothAnchor
                 href="#work"
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md bg-foreground text-background text-[0.85rem] hover:opacity-90 transition-opacity"
               >
                 See the work <span aria-hidden>→</span>
-              </Link>
-              <Link
+              </SmoothAnchor>
+              <SmoothAnchor
                 href="#contact"
                 className="inline-flex items-center gap-1.5 px-4 py-2 rounded-md border border-subtle text-foreground text-[0.85rem] hover:border-foreground/40 transition-colors"
               >
                 Contact
-              </Link>
+              </SmoothAnchor>
             </div>
           </div>
         </motion.div>

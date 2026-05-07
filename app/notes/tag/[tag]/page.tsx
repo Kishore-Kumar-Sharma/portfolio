@@ -5,14 +5,15 @@ import { listTags, notesByTag, tagSlug } from "@/lib/notes";
 import { siteConfig } from "@/config/site";
 
 interface Props {
-  params: { tag: string };
+  params: Promise<{ tag: string }>;
 }
 
 export async function generateStaticParams() {
   return listTags().map(({ tag }) => ({ tag: tagSlug(tag) }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const params = await props.params;
   const tag = decodeURIComponent(params.tag);
   const url = `${siteConfig.baseUrl}/notes/tag/${tagSlug(tag)}`;
   return {
@@ -28,7 +29,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default function TagPage({ params }: Props) {
+export default async function TagPage(props: Props) {
+  const params = await props.params;
   // Resolve slug back to original tag (case-insensitive match against listTags)
   const slug = decodeURIComponent(params.tag);
   const all = listTags();
