@@ -14,6 +14,22 @@ const initialState = {
   success: false,
 };
 
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+const TURNSTILE_SCRIPT_ID = "cf-turnstile-script";
+
+function useTurnstileScript(enabled: boolean) {
+  useEffect(() => {
+    if (!enabled || typeof document === "undefined") return;
+    if (document.getElementById(TURNSTILE_SCRIPT_ID)) return;
+    const s = document.createElement("script");
+    s.id = TURNSTILE_SCRIPT_ID;
+    s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+    s.async = true;
+    s.defer = true;
+    document.body.appendChild(s);
+  }, [enabled]);
+}
+
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
@@ -42,10 +58,15 @@ export function Contact() {
   const [message, setMessage] = useState("");
   const formRef = useRef<HTMLFormElement>(null);
 
+  useTurnstileScript(Boolean(TURNSTILE_SITE_KEY));
+
   useEffect(() => {
     if (state.success && formRef.current) {
       formRef.current.reset();
       setMessage("");
+      // Reset the Turnstile widget so the next submission gets a fresh token.
+      const w = (window as unknown as { turnstile?: { reset: () => void } }).turnstile;
+      w?.reset();
     }
   }, [state.success]);
 
@@ -131,6 +152,15 @@ export function Contact() {
                 <p className="mt-2 font-mono text-[0.75rem] text-destructive">{state.errors.message[0]}</p>
               )}
             </div>
+
+            {TURNSTILE_SITE_KEY && (
+              <div
+                className="cf-turnstile"
+                data-sitekey={TURNSTILE_SITE_KEY}
+                data-theme="auto"
+                data-size="flexible"
+              />
+            )}
 
             <div className="flex items-center justify-between gap-4 pt-2">
               <SubmitButton />

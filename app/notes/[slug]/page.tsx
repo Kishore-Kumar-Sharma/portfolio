@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { listSlugs, loadNote } from "@/lib/notes";
+import { safeJsonLd } from "@/lib/json-ld";
 import { siteConfig } from "@/config/site";
 
 interface Props {
@@ -150,16 +151,3 @@ function formatDate(iso: string): string {
   return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 }
 
-// Escape sequences that could break out of a <script> block: </script>, <!--, <![CDATA[,
-// plus U+2028 / U+2029 (JSON.stringify leaves them raw; historically breaks inline JS parsing).
-// Built with String.fromCharCode + split/join so no raw separator chars exist in source.
-const LS = String.fromCharCode(0x2028);
-const PS = String.fromCharCode(0x2029);
-function safeJsonLd(obj: unknown): string {
-  return JSON.stringify(obj)
-    .replace(/</g, "\\u003c")
-    .replace(/>/g, "\\u003e")
-    .replace(/&/g, "\\u0026")
-    .split(LS).join("\\u2028")
-    .split(PS).join("\\u2029");
-}

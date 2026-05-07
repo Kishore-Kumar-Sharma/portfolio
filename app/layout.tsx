@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { siteConfig } from "@/config/site";
+import { safeJsonLd } from "@/lib/json-ld";
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/Navigation";
@@ -7,6 +9,12 @@ import { Footer } from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { FloatingActions } from "@/components/FloatingActions";
 import { CommandPalette } from "@/components/CommandPalette";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
+// GA4 measurement IDs match `G-` followed by alphanumerics. Anything else is
+// rejected so the env value can never be coerced into script content.
+const GA_ID_PATTERN = /^G-[A-Z0-9]+$/;
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -111,9 +119,12 @@ export const metadata: Metadata = {
   category: "technology",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+  const gaId = GA_ID_PATTERN.test(siteConfig.gaMeasurementId) ? siteConfig.gaMeasurementId : null;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -156,29 +167,23 @@ export default function RootLayout({
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          nonce={nonce}
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
         />
-        {process.env.NODE_ENV === "production" && (
+        {process.env.NODE_ENV === "production" && gaId && (
           <>
+            <script async nonce={nonce} src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
             <script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.gaMeasurementId}`}
-            />
-            <script
+              nonce={nonce}
               dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${siteConfig.gaMeasurementId}', { page_path: window.location.pathname });
-                `,
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',${JSON.stringify(gaId)},{page_path:window.location.pathname});`,
               }}
             />
           </>
         )}
       </head>
       <body className="bg-background text-foreground antialiased">
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem nonce={nonce}>
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[200] focus:px-4 focus:py-2 focus:rounded-md focus:bg-foreground focus:text-background"
@@ -191,6 +196,8 @@ export default function RootLayout({
           <FloatingActions />
           <CommandPalette />
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

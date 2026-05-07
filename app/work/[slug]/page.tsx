@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { listWorkSlugs, loadWork } from "@/lib/work";
+import { safeJsonLd } from "@/lib/json-ld";
 import { siteConfig } from "@/config/site";
 
 interface Props {
@@ -171,13 +172,3 @@ function fmt(iso: string): string {
   return d.toLocaleDateString("en-US", { year: "numeric", month: "short" });
 }
 
-const LS = String.fromCharCode(0x2028);
-const PS = String.fromCharCode(0x2029);
-function safeJsonLd(obj: unknown): string {
-  return JSON.stringify(obj)
-    .replace(/</g, "\\u003c")
-    .replace(/>/g, "\\u003e")
-    .replace(/&/g, "\\u0026")
-    .split(LS).join("\\u2028")
-    .split(PS).join("\\u2029");
-}
