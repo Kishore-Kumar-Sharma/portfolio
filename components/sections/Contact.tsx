@@ -115,38 +115,43 @@ export function Contact() {
         {/* Right: form */}
         <div className="md:col-span-7 md:pl-10 md:border-l md:border-subtle/60">
           <Reveal>
-            <p className="eyebrow mb-6">Or write — I read everything</p>
+            <p className="eyebrow mb-6">Or write — I read every one</p>
           </Reveal>
 
           <form ref={formRef} action={formAction} className="space-y-6" noValidate>
             <Field
-              label="Your name"
+              label="What should I call you?"
               name="name"
               type="text"
               required
+              placeholder="First name is fine"
               error={state.errors?.name?.[0]}
             />
             <Field
-              label="Email"
+              label="Where do I reply?"
               name="email"
               type="email"
               required
+              placeholder="you@company.com"
               error={state.errors?.email?.[0]}
             />
             <div>
               <label htmlFor="message" className="flex items-baseline justify-between mb-2">
-                <span className="font-mono text-[0.78rem] text-muted-foreground">Message</span>
-                <span className="font-mono text-[0.7rem] text-muted-foreground num">{message.length} chars</span>
+                <span className="font-mono text-[0.78rem] text-muted-foreground">What are you working on?</span>
+                <span className="font-mono text-[0.7rem] text-muted-foreground num">
+                  {message.length} / 5000
+                </span>
               </label>
               <textarea
                 id="message"
                 name="message"
                 rows={5}
                 required
+                maxLength={5000}
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 className="w-full bg-transparent border-b border-subtle focus:border-foreground transition-colors py-2 text-[0.95rem] outline-none resize-none placeholder:text-muted-foreground/50"
-                placeholder="What are you building?"
+                placeholder="Project, timeline, what's making it hard. Or just a hello."
               />
               {state.errors?.message?.[0] && (
                 <p className="mt-2 font-mono text-[0.75rem] text-destructive">{state.errors.message[0]}</p>
@@ -193,12 +198,14 @@ function Field({
   name,
   type,
   required,
+  placeholder,
   error,
 }: {
   label: string;
   name: string;
   type: string;
   required?: boolean;
+  placeholder?: string;
   error?: string;
 }) {
   return (
@@ -211,6 +218,7 @@ function Field({
         name={name}
         type={type}
         required={required}
+        placeholder={placeholder}
         className="w-full bg-transparent border-b border-subtle focus:border-foreground transition-colors py-2 text-[0.95rem] outline-none placeholder:text-muted-foreground/50"
       />
       {error && <p className="mt-2 font-mono text-[0.75rem] text-destructive">{error}</p>}

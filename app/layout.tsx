@@ -168,13 +168,20 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           nonce={nonce}
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
         />
         {process.env.NODE_ENV === "production" && gaId && (
           <>
-            <script async nonce={nonce} src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} />
+            <script
+              async
+              nonce={nonce}
+              suppressHydrationWarning
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+            />
             <script
               nonce={nonce}
+              suppressHydrationWarning
               dangerouslySetInnerHTML={{
                 __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config',${JSON.stringify(gaId)},{page_path:window.location.pathname});`,
               }}

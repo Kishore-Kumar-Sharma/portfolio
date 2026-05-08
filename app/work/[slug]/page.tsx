@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { listWorkSlugs, loadWork } from "@/lib/work";
 import { safeJsonLd } from "@/lib/json-ld";
@@ -48,6 +49,7 @@ export default async function WorkPage(props: Props) {
   const work = loadWork(params.slug);
   if (!work) notFound();
 
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   const url = `${siteConfig.baseUrl}/work/${work.slug}`;
   const jsonLd = {
     "@context": "https://schema.org",
@@ -65,6 +67,8 @@ export default async function WorkPage(props: Props) {
     <article className="min-h-screen pt-32 pb-24">
       <script
         type="application/ld+json"
+        nonce={nonce}
+        suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
 

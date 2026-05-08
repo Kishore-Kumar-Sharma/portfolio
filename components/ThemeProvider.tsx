@@ -12,7 +12,7 @@ export function ThemeProvider({ children, nonce, ...props }: Props) {
       {...props}
       enableSystem
       disableTransitionOnChange
-      scriptProps={nonce ? { nonce } : undefined}
+      nonce={nonce}
     >
       <MotionConfig reducedMotion="user">{children}</MotionConfig>
     </NextThemesProvider>

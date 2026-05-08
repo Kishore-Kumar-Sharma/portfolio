@@ -5,6 +5,7 @@ import nodemailer from 'nodemailer'
 import { headers } from 'next/headers';
 import { isRateLimited } from '@/lib/rate-limit';
 import { verifyTurnstile } from '@/lib/turnstile';
+import { siteConfig } from '@/config/site';
 
 const contactFormSchema = z.object({
   name: z.string().min(1, 'Name is required').max(100),
@@ -95,35 +96,56 @@ export async function submitContactForm(prevState: any, formData: FormData) {
       },
     });
 
+    const siteUrl = siteConfig.baseUrl;
+    const displayUrl = siteUrl.replace(/^https?:\/\//, '').replace(/\/$/, '');
+    const submittedAt = new Date().toLocaleString('en-IN', {
+      timeZone: 'Asia/Kolkata',
+      dateStyle: 'medium',
+      timeStyle: 'short',
+    });
+
+    const labelStyle = "font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6b7280;";
+    const valueStyle = "font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 14px; color: #111827;";
+
     await transporter.sendMail({
-      from: `"Portfolio Contact" <${gmailUser}>`,
+      from: `"Portfolio · /contact" <${gmailUser}>`,
       to: gmailUser,
       replyTo: email,
-      subject: `💼 New inquiry from ${name} via Portfolio`,
+      subject: `New inquiry · ${name}`,
       html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #f9fafb; border-radius: 8px;">
-          <h2 style="color: #111827; margin-bottom: 4px;">New Contact Form Submission</h2>
-          <p style="color: #6b7280; margin-top: 0;">Received via your portfolio contact form</p>
-          <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;" />
-          <table style="width: 100%; border-collapse: collapse;">
-            <tr>
-              <td style="padding: 8px 0; font-weight: 600; color: #374151; width: 80px;">Name</td>
-              <td style="padding: 8px 0; color: #111827;">${safeName}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; font-weight: 600; color: #374151;">Email</td>
-              <td style="padding: 8px 0;">
-                <a href="mailto:${safeEmail}" style="color: #7c3aed;">${safeEmail}</a>
-              </td>
-            </tr>
-          </table>
-          <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;" />
-          <h3 style="color: #374151; margin-bottom: 8px;">Message</h3>
-          <p style="color: #111827; line-height: 1.7; white-space: pre-wrap;">${safeMessage}</p>
-          <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 20px 0;" />
-          <p style="color: #9ca3af; font-size: 12px;">
-            Sent from kishore-kumar-sharma.dev · Hit Reply to respond directly to ${safeName}.
-          </p>
+        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 32px 28px; background: #ffffff; color: #111827;">
+          <p style="${labelStyle} margin: 0 0 6px;">/contact · new inquiry</p>
+          <h1 style="font-family: Georgia, 'Times New Roman', serif; font-weight: 500; font-size: 26px; line-height: 1.2; margin: 0 0 24px; color: #0a0a0b;">
+            <span style="font-style: italic; color: #6028d9;">${safeName}</span> wants to talk.
+          </h1>
+
+          <div style="border-top: 1px solid #e5e7eb; padding-top: 20px;">
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr>
+                <td style="${labelStyle} padding: 10px 0; width: 110px; vertical-align: top;">Name</td>
+                <td style="${valueStyle} padding: 10px 0;">${safeName}</td>
+              </tr>
+              <tr>
+                <td style="${labelStyle} padding: 10px 0; vertical-align: top;">Email</td>
+                <td style="${valueStyle} padding: 10px 0;">
+                  <a href="mailto:${safeEmail}" style="color: #6028d9; text-decoration: none;">${safeEmail}</a>
+                </td>
+              </tr>
+              <tr>
+                <td style="${labelStyle} padding: 10px 0; vertical-align: top;">Submitted</td>
+                <td style="${valueStyle} padding: 10px 0; color: #6b7280;">${submittedAt} IST</td>
+              </tr>
+            </table>
+          </div>
+
+          <div style="border-top: 1px solid #e5e7eb; margin-top: 8px; padding: 20px 0;">
+            <p style="${labelStyle} margin: 0 0 12px;">Message</p>
+            <p style="${valueStyle} line-height: 1.65; white-space: pre-wrap; margin: 0;">${safeMessage}</p>
+          </div>
+
+          <div style="border-top: 1px solid #e5e7eb; padding-top: 16px; ${labelStyle}">
+            Reply to this email to respond directly · <a href="${siteUrl}" style="color: #6b7280; text-decoration: none;">${displayUrl}</a>
+          </div>
         </div>
       `,
     });

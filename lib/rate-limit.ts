@@ -5,7 +5,7 @@ import { Redis } from "@upstash/redis";
 // not shared across serverless instances, so the in-memory fallback below is
 // best-effort only (used in dev when env vars are not set).
 const RATE_LIMIT_WINDOW_MS = 60_000;
-const RATE_LIMIT_MAX = 3;
+const RATE_LIMIT_MAX = 20;
 
 const url = process.env.UPSTASH_REDIS_REST_URL;
 const token = process.env.UPSTASH_REDIS_REST_TOKEN;

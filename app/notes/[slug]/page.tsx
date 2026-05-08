@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { listSlugs, loadNote } from "@/lib/notes";
 import { safeJsonLd } from "@/lib/json-ld";
@@ -44,6 +45,7 @@ export default async function NotePage(props: Props) {
   const note = loadNote(params.slug);
   if (!note) notFound();
 
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   const url = `${siteConfig.baseUrl}/notes/${note.slug}`;
   const jsonLd = {
     "@context": "https://schema.org",
@@ -65,6 +67,8 @@ export default async function NotePage(props: Props) {
     <article className="min-h-screen pt-32 pb-24">
       <script
         type="application/ld+json"
+        nonce={nonce}
+        suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: safeJsonLd(jsonLd) }}
       />
 
