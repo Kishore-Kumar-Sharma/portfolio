@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { headers } from "next/headers";
 import { Suspense } from "react";
-import { listNotes, listTags, tagSlug } from "@/lib/notes";
+import { listCategoriesWithCounts, listNotes, listTags, tagSlug } from "@/lib/notes";
 import { safeJsonLd } from "@/lib/json-ld";
 import { siteConfig } from "@/config/site";
 import { NotesBrowser, type NoteSummary } from "@/components/notes/NotesBrowser";
@@ -51,6 +51,7 @@ export const metadata: Metadata = {
 export default async function NotesIndex() {
   const notes = listNotes();
   const tags = listTags();
+  const categories = listCategoriesWithCounts();
   const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   // Slim down for the client — drop raw markdown and rendered html.
@@ -60,6 +61,7 @@ export default async function NotesIndex() {
     description: n.description,
     date: n.date,
     tags: n.tags ?? [],
+    category: n.category,
     readMin: n.readMin,
   }));
 
@@ -137,7 +139,7 @@ export default async function NotesIndex() {
           </p>
         ) : (
           <Suspense fallback={null}>
-            <NotesBrowser notes={summaries} />
+            <NotesBrowser notes={summaries} categories={categories} />
           </Suspense>
         )}
 

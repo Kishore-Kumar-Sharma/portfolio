@@ -70,6 +70,7 @@ export default async function TagPage(props: Props) {
     description: n.description,
     date: n.date,
     tags: n.tags ?? [],
+    category: n.category,
     readMin: n.readMin,
   }));
 

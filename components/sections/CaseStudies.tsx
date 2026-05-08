@@ -10,10 +10,11 @@ import { DOMAIN_META, type DomainId } from "@/lib/domains";
 
 // Explicit mapping: experience index → /work slug + domain.
 // Source of truth, matches the frontmatter in content/work/*.md.
-// Changed from a regex heuristic because it mis-tagged engagements
-// (e.g. Credenc tripping on "Capital", Skaplink tripping on "government", etc.).
-const WORK_META: { slug: string; domain: DomainId }[] = [
-  { slug: "national-enterprise-connectivity-platform", domain: "telecom" },
+// `slug: null` means the entry shows in the homepage timeline but has no
+// deep case-study page (e.g. current TCS engagement — kept off the public
+// /work routes for confidentiality, surfaced here only as a timeline row).
+const WORK_META: { slug: string | null; domain: DomainId }[] = [
+  { slug: null, domain: "telecom" },
   { slug: "fintech-crm-loan-modernization", domain: "fintech" },
   { slug: "realtime-tutoring-platform", domain: "edtech" },
   { slug: "college-automation-platform", domain: "govtech" },
@@ -211,53 +212,62 @@ export function CaseStudies() {
           <ol className="border-t border-subtle/50">
             {rest.map((job) => {
               const meta = DOMAIN_META[job.domain];
+              const inner = (
+                <article className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-10 md:py-12 border-b border-subtle/50 hover:bg-surface/30 transition-colors -mx-3 px-3 rounded">
+                  <div className="md:col-span-3 flex flex-col gap-1.5">
+                    <span
+                      className="font-mono text-[0.7rem] tracking-widest uppercase"
+                      style={{ color: `hsl(${meta.cssVar})` }}
+                    >
+                      {meta.name}
+                    </span>
+                    <span className="font-mono text-[0.78rem] text-muted-foreground">
+                      {job.startDate} → {job.endDate}
+                    </span>
+                  </div>
+
+                  <div className="md:col-span-6">
+                    <h4 className="font-display text-heading text-foreground tracking-[-0.02em] leading-[1.1] text-balance group-hover:text-accent transition-colors">
+                      {job.role}
+                    </h4>
+                    <p className="mt-1.5 text-[0.92rem] text-muted-foreground">{job.company}</p>
+                    <p className="mt-5 text-[0.95rem] text-foreground/80 leading-relaxed max-w-[58ch] text-pretty">
+                      {job.description[0]}
+                    </p>
+                    {job.slug && (
+                      <p className="mt-4 font-mono text-[0.72rem] text-muted-foreground group-hover:text-foreground transition-colors">
+                        read case study →
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="md:col-span-3">
+                    <ul className="flex flex-wrap gap-x-2 gap-y-1.5 font-mono text-[0.72rem]">
+                      {job.technologies.slice(0, 6).map((t) => (
+                        <li key={t} className="text-muted-foreground">
+                          {t}
+                          <span aria-hidden className="text-subtle ml-2 last:hidden">
+                            ·
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              );
               return (
                 <Reveal key={job.company} as="li">
-                  <Link
-                    href={`/work/${job.slug}`}
-                    className="block group"
-                    data-cursor-label="open · case study"
-                  >
-                    <article className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 py-10 md:py-12 border-b border-subtle/50 hover:bg-surface/30 transition-colors -mx-3 px-3 rounded">
-                      <div className="md:col-span-3 flex flex-col gap-1.5">
-                        <span
-                          className="font-mono text-[0.7rem] tracking-widest uppercase"
-                          style={{ color: `hsl(${meta.cssVar})` }}
-                        >
-                          {meta.name}
-                        </span>
-                        <span className="font-mono text-[0.78rem] text-muted-foreground">
-                          {job.startDate} → {job.endDate}
-                        </span>
-                      </div>
-
-                      <div className="md:col-span-6">
-                        <h4 className="font-display text-heading text-foreground tracking-[-0.02em] leading-[1.1] text-balance group-hover:text-accent transition-colors">
-                          {job.role}
-                        </h4>
-                        <p className="mt-1.5 text-[0.92rem] text-muted-foreground">{job.company}</p>
-                        <p className="mt-5 text-[0.95rem] text-foreground/80 leading-relaxed max-w-[58ch] text-pretty">
-                          {job.description[0]}
-                        </p>
-                        <p className="mt-4 font-mono text-[0.72rem] text-muted-foreground group-hover:text-foreground transition-colors">
-                          read case study →
-                        </p>
-                      </div>
-
-                      <div className="md:col-span-3">
-                        <ul className="flex flex-wrap gap-x-2 gap-y-1.5 font-mono text-[0.72rem]">
-                          {job.technologies.slice(0, 6).map((t) => (
-                            <li key={t} className="text-muted-foreground">
-                              {t}
-                              <span aria-hidden className="text-subtle ml-2 last:hidden">
-                                ·
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </article>
-                  </Link>
+                  {job.slug ? (
+                    <Link
+                      href={`/work/${job.slug}`}
+                      className="block group"
+                      data-cursor-label="open · case study"
+                    >
+                      {inner}
+                    </Link>
+                  ) : (
+                    <div className="block group">{inner}</div>
+                  )}
                 </Reveal>
               );
             })}

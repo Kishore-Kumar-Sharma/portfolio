@@ -2,12 +2,19 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import { renderMarkdown } from "./markdown";
+import {
+  WRITING_CATEGORIES,
+  type CategorySlug,
+  normalizeCategory,
+} from "@/config/categories";
 
 export interface NoteFrontmatter {
   title: string;
   description: string;
   date: string; // ISO YYYY-MM-DD
   tags?: string[];
+  /** One of the slugs from config/categories. Defaults to "engineering". */
+  category?: CategorySlug;
   /** Estimated read time in minutes; computed if absent. */
   readMin?: number;
   draft?: boolean;
@@ -20,6 +27,7 @@ export interface NoteMeta {
   description: string;
   date: string;
   tags: string[];
+  category: CategorySlug;
   readMin: number;
   wordCount: number;
   draft?: boolean;
@@ -65,10 +73,28 @@ export function loadNoteMeta(slug: string): NoteMeta | null {
     description: fm.description,
     date: fm.date,
     tags: fm.tags ?? [],
+    category: normalizeCategory(fm.category),
     draft: fm.draft ?? false,
     readMin: fm.readMin ?? wordsPerMinute(content),
     wordCount: countWords(content),
   };
+}
+
+/** Notes grouped by category, with counts. Always returns every known category. */
+export function listCategoriesWithCounts(): { slug: CategorySlug; label: string; count: number }[] {
+  const counts = new Map<string, number>();
+  for (const n of listNotes()) {
+    counts.set(n.category, (counts.get(n.category) ?? 0) + 1);
+  }
+  return WRITING_CATEGORIES.map((c) => ({
+    slug: c.slug,
+    label: c.label,
+    count: counts.get(c.slug) ?? 0,
+  }));
+}
+
+export function notesByCategory(category: CategorySlug): NoteMeta[] {
+  return listNotes().filter((n) => n.category === category);
 }
 
 /** Load full note including rendered HTML. Async because shiki is async. */

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Search, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { CategorySlug } from "@/config/categories";
 
 export type NoteSummary = {
   slug: string;
@@ -11,7 +12,14 @@ export type NoteSummary = {
   description: string;
   date: string;
   tags: string[];
+  category: CategorySlug;
   readMin: number;
+};
+
+export type CategoryChip = {
+  slug: CategorySlug;
+  label: string;
+  count: number;
 };
 
 const PAGE_SIZE = 6;
@@ -22,12 +30,15 @@ interface NotesBrowserProps {
   searchPlaceholder?: string;
   /** Path the page lives on; used when rewriting the URL. Defaults to "/writing". */
   basePath?: string;
+  /** Optional category chips. When provided, renders a filter bar above the search. */
+  categories?: CategoryChip[];
 }
 
 export function NotesBrowser({
   notes,
   searchPlaceholder = "Search by title, description, or tag…",
   basePath = "/writing",
+  categories,
 }: NotesBrowserProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -35,37 +46,50 @@ export function NotesBrowser({
 
   const initialQuery = searchParams.get("q") ?? "";
   const initialPage = Math.max(1, parseInt(searchParams.get("page") ?? "1", 10) || 1);
+  const initialCategory = (() => {
+    const v = searchParams.get("category");
+    if (!v || !categories) return null;
+    return categories.some((c) => c.slug === v) ? (v as CategorySlug) : null;
+  })();
 
   const [query, setQuery] = useState(initialQuery);
   const [page, setPage] = useState(initialPage);
+  const [activeCategory, setActiveCategory] = useState<CategorySlug | null>(initialCategory);
 
   const filtered = useMemo(() => {
+    let list = notes;
+    if (activeCategory) {
+      list = list.filter((n) => n.category === activeCategory);
+    }
     const q = query.trim().toLowerCase();
-    if (!q) return notes;
-    return notes.filter((n) => {
-      const haystack = [n.title, n.description, ...(n.tags ?? [])].join(" ").toLowerCase();
-      return haystack.includes(q);
-    });
-  }, [notes, query]);
+    if (q) {
+      list = list.filter((n) => {
+        const haystack = [n.title, n.description, ...(n.tags ?? [])].join(" ").toLowerCase();
+        return haystack.includes(q);
+      });
+    }
+    return list;
+  }, [notes, query, activeCategory]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
   const pageNotes = filtered.slice((safePage - 1) * PAGE_SIZE, safePage * PAGE_SIZE);
 
-  // Reset to page 1 whenever the query changes.
+  // Reset to page 1 whenever the query or category changes.
   useEffect(() => {
     setPage(1);
-  }, [query]);
+  }, [query, activeCategory]);
 
   // Keep the URL in sync with state so links are shareable.
   useEffect(() => {
     const params = new URLSearchParams();
     if (query.trim()) params.set("q", query.trim());
     if (safePage > 1) params.set("page", String(safePage));
+    if (activeCategory) params.set("category", activeCategory);
     const qs = params.toString();
     const url = qs ? `${basePath}?${qs}` : basePath;
     router.replace(url, { scroll: false });
-  }, [query, safePage, router, basePath]);
+  }, [query, safePage, activeCategory, router, basePath]);
 
   // Scroll to the top of the browser when the user changes pages — but NOT
   // on every keystroke during search (that would be janky).
@@ -74,13 +98,37 @@ export function NotesBrowser({
     topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
+  const totalForLabel = activeCategory ? filtered.length : notes.length;
   const matchLabel = (() => {
-    if (!query.trim()) return `${notes.length} ${notes.length === 1 ? "note" : "notes"}`;
-    return `${filtered.length} ${filtered.length === 1 ? "match" : "matches"} for "${query.trim()}"`;
+    if (query.trim()) {
+      return `${filtered.length} ${filtered.length === 1 ? "match" : "matches"} for "${query.trim()}"`;
+    }
+    return `${totalForLabel} ${totalForLabel === 1 ? "piece" : "pieces"}`;
   })();
 
   return (
     <div ref={topRef} className="scroll-mt-24">
+      {categories && categories.length > 0 && (
+        <div className="mb-6 flex flex-wrap items-center gap-2">
+          <CategoryButton
+            active={activeCategory === null}
+            onClick={() => setActiveCategory(null)}
+            label="All"
+            count={notes.length}
+          />
+          {categories.map((c) => (
+            <CategoryButton
+              key={c.slug}
+              active={activeCategory === c.slug}
+              onClick={() => setActiveCategory(c.slug)}
+              label={c.label}
+              count={c.count}
+              dim={c.count === 0}
+            />
+          ))}
+        </div>
+      )}
+
       <div className="mb-10 flex flex-col sm:flex-row sm:items-center gap-3">
         <div className="relative flex-1">
           <Search
@@ -115,15 +163,20 @@ export function NotesBrowser({
       {pageNotes.length === 0 ? (
         <div className="py-16 text-center">
           <p className="font-mono text-[0.85rem] text-muted-foreground">
-            No matches. Try a different keyword.
+            {activeCategory && filtered.length === 0 && !query.trim()
+              ? "No posts in this category yet — first one is being drafted."
+              : "No matches. Try a different keyword."}
           </p>
-          {query && (
+          {(query || activeCategory) && (
             <button
               type="button"
-              onClick={() => setQuery("")}
+              onClick={() => {
+                setQuery("");
+                setActiveCategory(null);
+              }}
               className="mt-4 font-mono text-[0.78rem] text-accent hover:underline"
             >
-              clear search
+              clear filters
             </button>
           )}
         </div>
@@ -211,6 +264,37 @@ export function NotesBrowser({
         </nav>
       )}
     </div>
+  );
+}
+
+interface CategoryButtonProps {
+  active: boolean;
+  onClick: () => void;
+  label: string;
+  count: number;
+  /** Empty categories render in a quieter style so the chip strip stays calm. */
+  dim?: boolean;
+}
+
+function CategoryButton({ active, onClick, label, count, dim }: CategoryButtonProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={`inline-flex items-center gap-1.5 h-9 px-3 rounded-md border font-mono text-[0.76rem] transition-colors ${
+        active
+          ? "bg-foreground text-background border-foreground"
+          : dim
+            ? "border-subtle/40 text-muted-foreground/60 hover:text-foreground hover:border-foreground/40"
+            : "border-subtle/60 text-muted-foreground hover:text-foreground hover:border-foreground/40"
+      }`}
+    >
+      <span>{label}</span>
+      <span className={active ? "opacity-80 num" : "text-muted-foreground/60 num"}>
+        {count}
+      </span>
+    </button>
   );
 }
 

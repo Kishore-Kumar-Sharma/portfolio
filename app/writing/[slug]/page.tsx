@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { listSlugs, loadNote, loadNoteMeta, relatedNotes } from "@/lib/notes";
 import type { NoteMeta } from "@/lib/notes";
+import { categoryLabel } from "@/config/categories";
 import { ShareBar } from "@/components/notes/ShareBar";
 import { ReadingProgress } from "@/components/notes/ReadingProgress";
 import { safeJsonLd } from "@/lib/json-ld";
@@ -151,9 +152,18 @@ export default async function NotePage(props: Props) {
             ← writing
           </Link>
           <div className="mt-8 flex items-baseline justify-between gap-4 mb-5">
-            <time dateTime={note.date} className="font-mono text-[0.72rem] text-muted-foreground">
-              {formatDate(note.date)}
-            </time>
+            <div className="flex items-baseline gap-3">
+              <Link
+                href={`/writing?category=${note.category}`}
+                className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-accent hover:underline"
+              >
+                {categoryLabel(note.category)}
+              </Link>
+              <span className="text-subtle">·</span>
+              <time dateTime={note.date} className="font-mono text-[0.72rem] text-muted-foreground">
+                {formatDate(note.date)}
+              </time>
+            </div>
             <span className="font-mono text-[0.7rem] text-muted-foreground">
               {note.readMin} min read
             </span>
