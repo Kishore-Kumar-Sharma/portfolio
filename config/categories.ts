@@ -9,26 +9,26 @@ export const WRITING_CATEGORIES = [
     label: "Engineering",
     description: "Architecture, distributed systems, the discipline behind production software.",
   },
-  {
-    slug: "career",
-    label: "Career & Leadership",
-    description: "Industry observations, career growth, mentoring, hiring, senior engineering.",
-  },
-  {
-    slug: "personal",
-    label: "Personal & Opinion",
-    description: "Life lessons, philosophy, takes that aren't strictly technical.",
-  },
-  {
-    slug: "reviews",
-    label: "Reviews",
-    description: "Books, tools, products, courses — short or long-form.",
-  },
-  {
-    slug: "logs",
-    label: "Notes & Logs",
-    description: "Shorter reading notes, learning logs, quick takes — lower bar than full articles.",
-  },
+  // {
+  //   slug: "career",
+  //   label: "Career & Leadership",
+  //   description: "Industry observations, career growth, mentoring, hiring, senior engineering.",
+  // },
+  // {
+  //   slug: "personal",
+  //   label: "Personal & Opinion",
+  //   description: "Life lessons, philosophy, takes that aren't strictly technical.",
+  // },
+  // {
+  //   slug: "reviews",
+  //   label: "Reviews",
+  //   description: "Books, tools, products, courses — short or long-form.",
+  // },
+  // {
+  //   slug: "logs",
+  //   label: "Notes & Logs",
+  //   description: "Shorter reading notes, learning logs, quick takes — lower bar than full articles.",
+  // },
 ] as const;
 
 export type CategorySlug = (typeof WRITING_CATEGORIES)[number]["slug"];
