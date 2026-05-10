@@ -7,6 +7,7 @@ import type { NoteMeta } from "@/lib/notes";
 import { categoryLabel } from "@/config/categories";
 import { ShareBar } from "@/components/notes/ShareBar";
 import { ReadingProgress } from "@/components/notes/ReadingProgress";
+import { AuthorCard } from "@/components/notes/AuthorCard";
 import { safeJsonLd } from "@/lib/json-ld";
 import { siteConfig } from "@/config/site";
 
@@ -29,9 +30,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     title: note.title,
     description: note.description,
     keywords: tags,
-    authors: [{ name: "Kishore Kumar Sharma", url: siteConfig.baseUrl }],
-    creator: "Kishore Kumar Sharma",
-    publisher: "Kishore Kumar Sharma",
+    authors: [{ name: "Kishore K Sharma", url: siteConfig.baseUrl }],
+    creator: "Kishore K Sharma",
+    publisher: "Kishore K Sharma",
     category: tags[0],
     alternates: { canonical: url },
     robots: {
@@ -50,11 +51,11 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       description: note.description,
       type: "article",
       url,
-      siteName: "Kishore Kumar Sharma",
+      siteName: "Kishore K Sharma",
       locale: "en_IN",
       publishedTime: note.date,
       modifiedTime: note.date,
-      authors: ["Kishore Kumar Sharma"],
+      authors: ["Kishore K Sharma"],
       tags,
       section: tags[0],
     },
@@ -83,10 +84,10 @@ export default async function NotePage(props: Props) {
   const author = {
     "@type": "Person" as const,
     "@id": `${siteConfig.baseUrl}/#person`,
-    name: "Kishore Kumar Sharma",
+    name: "Kishore K Sharma",
     url: siteConfig.baseUrl,
-    sameAs: ["https://www.linkedin.com/in/kishore-kumar-sharma/"],
-    jobTitle: "Senior Full Stack Engineer",
+    sameAs: ["https://www.linkedin.com/in/kishore-k-sharma"],
+    jobTitle: "Lead Full Stack Engineer",
   };
 
   const jsonLd = {
@@ -209,6 +210,8 @@ export default async function NotePage(props: Props) {
 
         <ShareBar url={url} title={note.title} description={note.description} />
 
+        <AuthorCard />
+
         {(prev || next) && (
           <nav
             aria-label="Related writing"
@@ -228,9 +231,6 @@ export default async function NotePage(props: Props) {
         )}
 
         <footer className="mt-16 pt-8 border-t border-subtle/60">
-          <p className="font-mono text-[0.78rem] text-muted-foreground mb-4">
-            written by Kishore Kumar Sharma · {formatDate(note.date)}
-          </p>
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/writing"

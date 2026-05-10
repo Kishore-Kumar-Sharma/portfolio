@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { loadNoteMeta } from "@/lib/notes";
 
 export const runtime = "nodejs";
-export const alt = "Note by Kishore Kumar Sharma";
+export const alt = "Note by Kishore K Sharma";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -50,7 +50,7 @@ export default async function NoteOG({ params }: { params: { slug: string } }) {
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 16, color: "#9B9CA3" }}>
           <span style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <span style={{ width: 8, height: 8, borderRadius: 4, background: "#C9A8FF" }} />
-            /writing · kishore-kumar-sharma.dev
+            /writing · kishorek.dev
           </span>
           <span>{note.readMin} min read</span>
         </div>
@@ -89,9 +89,9 @@ export default async function NoteOG({ params }: { params: { slug: string } }) {
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: 22, color: "#F5F2ED" }}>Kishore Kumar Sharma</div>
+            <div style={{ fontSize: 22, color: "#F5F2ED" }}>Kishore K Sharma</div>
             <div style={{ fontSize: 16, color: "#9B9CA3", marginTop: 4 }}>
-              Senior Full Stack Engineer
+              Lead Full Stack Engineer
             </div>
           </div>
           {note.tags && note.tags.length > 0 && (

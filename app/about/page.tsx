@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import portfolioData from "@/data/portfolio.json";
 import { siteConfig } from "@/config/site";
 import { safeJsonLd } from "@/lib/json-ld";
+import { LinkedInCard } from "@/components/LinkedInCard";
 
 const { personal, summary, manifesto, experience, education, awards, certifications } =
   portfolioData;
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `${siteConfig.baseUrl}/about` },
   keywords: [
     `About ${personal.name}`,
-    "Senior Full Stack Engineer",
+    "Lead Full Stack Engineer",
     "Engineer profile",
     "Java Spring Boot Node.js engineer",
     "Software engineer Noida",
@@ -78,6 +79,18 @@ export default async function AboutPage() {
             {summary}
           </p>
         </header>
+
+        <section className="mb-16">
+          <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted-foreground mb-5">
+            /linkedin
+          </p>
+          <LinkedInCard
+            url={personal.linkedin}
+            name={personal.name}
+            title={personal.title}
+            location={personal.location}
+          />
+        </section>
 
         <section className="mb-16">
           <p className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted-foreground mb-5">

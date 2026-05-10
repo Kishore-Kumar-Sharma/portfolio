@@ -64,7 +64,7 @@ export function Navigation() {
         <nav className="container-editorial flex items-center justify-between gap-6">
           <Link
             href="/"
-            aria-label="Kishore Kumar Sharma — home"
+            aria-label="Kishore K Sharma — home"
             className="group flex items-center gap-2"
           >
             <span className="font-mono text-[0.78rem] tracking-[0.18em] uppercase text-muted-foreground group-hover:text-foreground transition-colors">
@@ -72,7 +72,7 @@ export function Navigation() {
             </span>
             <span className="h-1 w-1 rounded-full bg-accent animate-pulse-soft" aria-hidden />
             <span className="font-display text-[0.95rem] tracking-tight text-foreground hidden sm:inline">
-              Kishore Kumar Sharma
+              Kishore K Sharma
             </span>
           </Link>
 

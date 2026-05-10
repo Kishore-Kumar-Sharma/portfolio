@@ -20,12 +20,12 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   const tag = decodeURIComponent(params.tag);
   const url = `${siteConfig.baseUrl}/writing/tag/${tagSlug(tag)}`;
-  const description = `Notes on ${tag} — long-form writing on architecture, distributed systems, and shipping discipline by Kishore Kumar Sharma.`;
+  const description = `Notes on ${tag} — long-form writing on architecture, distributed systems, and shipping discipline by Kishore K Sharma.`;
   return {
     title: `#${tag}`,
     description,
-    keywords: [tag, "software engineering", "backend", "Kishore Kumar Sharma"],
-    authors: [{ name: "Kishore Kumar Sharma", url: siteConfig.baseUrl }],
+    keywords: [tag, "software engineering", "backend", "Kishore K Sharma"],
+    authors: [{ name: "Kishore K Sharma", url: siteConfig.baseUrl }],
     alternates: { canonical: url },
     robots: {
       index: true,
@@ -42,7 +42,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       description,
       url,
       type: "website",
-      siteName: "Kishore Kumar Sharma",
+      siteName: "Kishore K Sharma",
       locale: "en_IN",
     },
     twitter: {
@@ -83,7 +83,7 @@ export default async function TagPage(props: Props) {
     "@type": "CollectionPage",
     "@id": url,
     name: `Notes tagged #${match.tag}`,
-    description: `Long-form notes by Kishore Kumar Sharma tagged ${match.tag}.`,
+    description: `Long-form notes by Kishore K Sharma tagged ${match.tag}.`,
     url,
     inLanguage: "en",
     isPartOf: { "@type": "Blog", "@id": `${siteConfig.baseUrl}/writing` },

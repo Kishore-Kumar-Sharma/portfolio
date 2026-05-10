@@ -11,7 +11,7 @@ const GA_ID_PATTERN = /^G-[A-Z0-9]+$/;
 const rawGaId = process.env.GA_MEASUREMENT_ID ?? "";
 
 export const siteConfig = {
-  baseUrl: process.env.BASE_URL ?? "https://kishore-kumar-sharma.dev",
+  baseUrl: process.env.BASE_URL ?? "https://kishorek.dev",
   /** Validated GA4 measurement ID, or null if unset / malformed. */
   gaMeasurementId: GA_ID_PATTERN.test(rawGaId) ? rawGaId : null,
 };

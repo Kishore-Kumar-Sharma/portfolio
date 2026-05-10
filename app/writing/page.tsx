@@ -18,9 +18,9 @@ export const metadata: Metadata = {
     "microservices",
     "system design",
     "production engineering",
-    "Kishore Kumar Sharma",
+    "Kishore K Sharma",
   ],
-  authors: [{ name: "Kishore Kumar Sharma", url: siteConfig.baseUrl }],
+  authors: [{ name: "Kishore K Sharma", url: siteConfig.baseUrl }],
   alternates: { canonical: `${siteConfig.baseUrl}/writing` },
   robots: {
     index: true,
@@ -34,16 +34,16 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Writing — Kishore Kumar Sharma",
+    title: "Writing — Kishore K Sharma",
     description: "Notes on architecture, distributed systems, and shipping discipline.",
     type: "website",
     url: `${siteConfig.baseUrl}/writing`,
-    siteName: "Kishore Kumar Sharma",
+    siteName: "Kishore K Sharma",
     locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Writing — Kishore Kumar Sharma",
+    title: "Writing — Kishore K Sharma",
     description: "Notes on architecture, distributed systems, and shipping discipline.",
   },
 };
@@ -68,16 +68,16 @@ export default async function NotesIndex() {
   const author = {
     "@type": "Person" as const,
     "@id": `${siteConfig.baseUrl}/#person`,
-    name: "Kishore Kumar Sharma",
+    name: "Kishore K Sharma",
     url: siteConfig.baseUrl,
-    sameAs: ["https://www.linkedin.com/in/kishore-kumar-sharma/"],
+    sameAs: ["https://www.linkedin.com/in/kishore-k-sharma"],
   };
 
   const blogJsonLd = {
     "@context": "https://schema.org",
     "@type": "Blog",
     "@id": `${siteConfig.baseUrl}/writing`,
-    name: "Writing — Kishore Kumar Sharma",
+    name: "Writing — Kishore K Sharma",
     description:
       "Long-form notes on architecture, distributed systems, and the discipline behind production software.",
     url: `${siteConfig.baseUrl}/writing`,

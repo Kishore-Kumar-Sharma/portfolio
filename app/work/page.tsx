@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "Selected case studies — telecom, fintech, govtech, edtech. Long-form narratives of the systems I've architected and the outcomes that shipped.",
   alternates: { canonical: `${siteConfig.baseUrl}/work` },
   openGraph: {
-    title: "Work — Kishore Kumar Sharma",
+    title: "Work — Kishore K Sharma",
     description: "Selected engineering case studies across four verticals.",
     type: "website",
     url: `${siteConfig.baseUrl}/work`,

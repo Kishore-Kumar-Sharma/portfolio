@@ -47,14 +47,14 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "Kishore Kumar Sharma — Senior Full Stack Engineer",
-    template: "%s · Kishore Kumar Sharma",
+    default: "Kishore K Sharma — Lead Full Stack Engineer",
+    template: "%s · Kishore K Sharma",
   },
   description:
     "I ship end-to-end. Six and a half years across telecom, fintech, govtech and edtech — designing schemas, writing services, and building the UIs that consume them. Backend-deep by training, full-stack by delivery.",
   keywords: [
-    "Kishore Kumar Sharma",
-    "Senior Full Stack Engineer",
+    "Kishore K Sharma",
+    "Lead Full Stack Engineer",
     "Full Stack Engineer for hire",
     "End-to-end full stack developer",
     "MERN Stack engineer",
@@ -72,9 +72,9 @@ export const metadata: Metadata = {
     "AI-augmented developer",
     "Full stack architect",
   ],
-  authors: [{ name: "Kishore Kumar Sharma", url: baseUrl }],
-  creator: "Kishore Kumar Sharma",
-  publisher: "Kishore Kumar Sharma",
+  authors: [{ name: "Kishore K Sharma", url: baseUrl }],
+  creator: "Kishore K Sharma",
+  publisher: "Kishore K Sharma",
   robots: {
     index: true,
     follow: true,
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
     canonical: baseUrl,
     types: {
       "application/rss+xml": [
-        { url: `${baseUrl}/writing/rss.xml`, title: "Writing — Kishore Kumar Sharma" },
+        { url: `${baseUrl}/writing/rss.xml`, title: "Writing — Kishore K Sharma" },
       ],
     },
   },
@@ -109,8 +109,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     url: baseUrl,
-    siteName: "Kishore Kumar Sharma",
-    title: "Kishore Kumar Sharma — Senior Full Stack Engineer",
+    siteName: "Kishore K Sharma",
+    title: "Kishore K Sharma — Lead Full Stack Engineer",
     description:
       "End to end. No handoffs. Six and a half years shipping across telecom, fintech, govtech and edtech — schema to surface, with measurable lift.",
     // No static `images` here on purpose — Next.js auto-detects
@@ -120,7 +120,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kishore Kumar Sharma — Senior Full Stack Engineer",
+    title: "Kishore K Sharma — Lead Full Stack Engineer",
     description:
       "End to end. No handoffs. Enterprise integrations across four verticals — every system shipped with measurable lift.",
     // Twitter card image inherits from openGraph.images / opengraph-image.tsx.
@@ -152,10 +152,10 @@ export default async function RootLayout({
       {
         "@type": "Person",
         "@id": `${baseUrl}/#person`,
-        name: "Kishore Kumar Sharma",
+        name: "Kishore K Sharma",
         givenName: "Kishore",
         familyName: "Sharma",
-        jobTitle: "Senior Full Stack Engineer",
+        jobTitle: "Lead Full Stack Engineer",
         url: baseUrl,
         image: `${baseUrl}/profile-picture.jpg`,
         email: "mailto:kishoresharma914@gmail.com",
@@ -171,8 +171,8 @@ export default async function RootLayout({
         },
         worksFor: {
           "@type": "Organization",
-          name: "Tata Consultancy Services",
-          url: "https://www.tcs.com",
+          name: "Telus Digital",
+          url: "https://www.telusdigital.com",
         },
         alumniOf: [
           {
@@ -186,7 +186,7 @@ export default async function RootLayout({
             url: "https://gauhati.ac.in",
           },
         ],
-        sameAs: ["https://www.linkedin.com/in/kishore-kumar-sharma/"],
+        sameAs: ["https://www.linkedin.com/in/kishore-k-sharma"],
         knowsAbout: [
           "Full Stack Development",
           "End-to-end Feature Delivery",
@@ -208,10 +208,10 @@ export default async function RootLayout({
         "@type": "WebSite",
         "@id": `${baseUrl}/#website`,
         url: baseUrl,
-        name: "Kishore Kumar Sharma",
+        name: "Kishore K Sharma",
         alternateName: "kishorek.dev",
         description:
-          "Personal site of Kishore Kumar Sharma — Senior Full Stack Engineer. Case studies, long-form writing, and the toolkit behind the work.",
+          "Personal site of Kishore K Sharma — Lead Full Stack Engineer. Case studies, long-form writing, and the toolkit behind the work.",
         inLanguage: "en",
         publisher: { "@id": `${baseUrl}/#person` },
         // Tells Google the site has a search-shaped surface (Writing search).

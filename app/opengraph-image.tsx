@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "nodejs";
-export const alt = "Kishore Kumar Sharma — Senior Full Stack Engineer";
+export const alt = "Kishore K Sharma — Lead Full Stack Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -25,9 +25,9 @@ export default function HomeOG() {
         <div style={{ display: "flex", justifyContent: "space-between", fontSize: 16, color: "#9B9CA3" }}>
           <span style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <span style={{ width: 8, height: 8, borderRadius: 4, background: "#A8C8A1" }} />
-            kishore-kumar-sharma.dev
+            kishorek.dev
           </span>
-          <span>Senior Full Stack Engineer · Noida</span>
+          <span>Lead Full Stack Engineer · Noida</span>
         </div>
 
         {/* Headline */}
@@ -52,7 +52,7 @@ export default function HomeOG() {
         {/* Bottom meta */}
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: 28, color: "#F5F2ED", marginBottom: 6 }}>Kishore Kumar Sharma</div>
+            <div style={{ fontSize: 28, color: "#F5F2ED", marginBottom: 6 }}>Kishore K Sharma</div>
             <div style={{ fontSize: 18, color: "#9B9CA3" }}>
               6.5+ yrs · Java · Spring Boot · Node · React · AWS
             </div>

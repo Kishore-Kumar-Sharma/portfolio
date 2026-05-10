@@ -55,7 +55,7 @@ export function Hero() {
         >
           <span className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-edtech animate-pulse-soft" aria-hidden />
-            Available for senior full-stack roles
+            Available for lead full-stack engineering roles
           </span>
           <span className="hidden md:inline text-subtle">·</span>
           <span>{personal.location}</span>

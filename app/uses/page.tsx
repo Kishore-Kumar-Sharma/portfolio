@@ -5,10 +5,10 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: "Uses",
   description:
-    "The editor, hardware, fonts, terminal setup, and tools I reach for as a senior backend engineer. Updated as the workflow evolves.",
+    "The editor, hardware, fonts, terminal setup, and tools I reach for as a lead full stack engineer. Updated as the workflow evolves.",
   alternates: { canonical: `${siteConfig.baseUrl}/uses` },
   openGraph: {
-    title: "Uses — Kishore Kumar Sharma",
+    title: "Uses — Kishore K Sharma",
     description: "Editor, terminal, languages, AI workflow, and tooling.",
     url: `${siteConfig.baseUrl}/uses`,
     type: "website",
@@ -127,7 +127,7 @@ export default function UsesPage() {
           </h1>
           <p className="mt-6 max-w-[58ch] text-body-lg text-muted-foreground text-pretty">
             Editor, languages, stack, cloud, AI workflow, hardware, fonts. The toolkit of a
-            senior backend engineer in 2026 — what I actually use, with the trade-offs in plain language.
+            lead full stack engineer in 2026 — what I actually use, with the trade-offs in plain language.
             Updated as the workflow evolves.
           </p>
         </header>

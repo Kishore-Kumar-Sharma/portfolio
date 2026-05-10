@@ -39,12 +39,12 @@ ${categories}
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kishore Kumar Sharma — Writing</title>
+    <title>Kishore K Sharma — Writing</title>
     <link>${escapeXml(`${baseUrl}/writing`)}</link>
     <atom:link href="${escapeXml(feedUrl)}" rel="self" type="application/rss+xml" />
     <description>Long-form notes on architecture, distributed systems, and the discipline behind production software.</description>
     <language>en</language>
-    <copyright>© ${new Date().getFullYear()} Kishore Kumar Sharma</copyright>
+    <copyright>© ${new Date().getFullYear()} Kishore K Sharma</copyright>
     <lastBuildDate>${lastBuild.toUTCString()}</lastBuildDate>
 ${items}
   </channel>

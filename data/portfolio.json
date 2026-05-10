@@ -1,12 +1,13 @@
 {
   "personal": {
-    "name": "Kishore Kumar Sharma",
-    "title": "Senior Full Stack Engineer",
+    "name": "Kishore K Sharma",
+    "title": "Lead Full Stack Engineer",
     "tagline": "I ship end-to-end. Schema to surface. No handoffs.",
+    "authorHeadline": "Lead Full Stack Engineer | Java · Spring Boot · Distributed Systems · AWS | Building Scalable Cloud-Native Platforms",
     "experienceYears": "6.5+",
     "location": "Noida, UP",
     "email": "kishoresharma914@gmail.com",
-    "linkedin": "https://www.linkedin.com/in/kishore-kumar-sharma/",
+    "linkedin": "https://www.linkedin.com/in/kishore-k-sharma",
     "linkedinPage": "https://www.linkedin.com/groups/14367379/"
   },
   "summary": "Six and a half years shipping end-to-end. I take features from data model to deployed UI — designing the schema, writing the services, building the screens, running the deploys. Backend-deep by training, full-stack by delivery. Built across telecom, fintech, govtech and edtech — every system shipped with measurable lift.",
@@ -110,10 +111,32 @@
   },
   "experience": [
     {
+      "company": "Telus Digital",
+      "role": "Lead Full Stack Engineer",
+      "startDate": "April 2026",
+      "endDate": "Present",
+      "description": [
+        "Recently joined as Lead Full Stack Engineer — engagement details to follow as work goes live."
+      ],
+      "technologies": [
+        "Java 17",
+        "Spring Boot 3",
+        "Node JS",
+        "Angular",
+        "React JS",
+        "Microservices",
+        "PostgreSQL",
+        "AWS",
+        "Docker",
+        "CI/CD"
+      ],
+      "projects": []
+    },
+    {
       "company": "Tata Consultancy Services Pvt Ltd",
       "role": "Systems Engineer",
       "startDate": "May 2023",
-      "endDate": "Present",
+      "endDate": "April 2026",
       "description": [
         "Designed and delivered scalable microservices using Java 17 and Spring Boot 3 on telecom enterprise platforms.",
         "Built workflow automation solutions improving operational efficiency and system performance.",
@@ -138,7 +161,7 @@
       "projects": [
         {
           "title": "Enterprise Microservices Platform",
-          "duration": "Jan 2024 - Present",
+          "duration": "Jan 2024 - April 2026",
           "description": "Led architectural design and development of a large-scale microservices platform for a telecom enterprise engagement. Drove integrations across multiple enterprise systems and lifted API throughput on critical paths through targeted backend optimization."
         },
         {
@@ -491,63 +514,63 @@
     {
       "name": "Sudeep Dutta",
       "title": "Senior Product Engineer @ iPaySmart | React Hooks, APIs",
-      "relationship": "Sudeep reported to Kishore Kumar directly",
+      "relationship": "Sudeep reported to Kishore K Sharma directly",
       "date": "April 19, 2023",
       "content": "Highly skilled and experienced Software Engineer with a demonstrated track record of delivering complex software solutions for a diverse range of clients. Proficient in a wide range of programming languages, frameworks, and tools. Adept at leading development teams, providing technical guidance and mentorship, and driving project success. Experienced in architecting scalable and resilient systems that meet business requirements and user needs. A results-oriented problem-solver with excellent analytical and communication skills, and a strong commitment to continuous learning and professional development."
     },
     {
       "name": "Abhinav Dhingra",
       "title": "Product Manager | Transforming ideas into profitable products through agile methodologies and cross-functional collaboration.",
-      "relationship": "Abhinav was senior to Kishore Kumar but didn't manage Kishore Kumar directly",
+      "relationship": "Abhinav was senior to Kishore K Sharma but didn't manage Kishore K Sharma directly",
       "date": "April 19, 2023",
       "content": "Kishore has a solid background in full-stack development and has demonstrated exceptional proficiency in a range of programming languages, including JavaScript and Python. He has a thorough understanding of front-end development technologies such as React and Angular as well as back-end frameworks such as Node.js and Nest.js. What sets Kishore apart from others is his ability to effectively collaborate with cross-functional teams and work in an agile environment. He has a deep understanding of design patterns and is well-versed in designing and implementing microservices architecture for web applications. I wholeheartedly recommend Kishore for the Full Stack Software Engineer position."
     },
     {
       "name": "Mohit Sharma",
       "title": "Senior Product Manager (PM II) | Marketplace & Platform Products | Logistics & Fintech",
-      "relationship": "Mohit worked with Kishore Kumar on the same team",
+      "relationship": "Mohit worked with Kishore K Sharma on the same team",
       "date": "April 19, 2023",
       "content": "Kishore Sharma is an accomplished Software Engineer with a proven history of delivering sophisticated software solutions to a variety of clients. His proficiency spans across several programming languages, frameworks, and tools. He has a talent for leading development teams, providing technical guidance and mentorship, and ensuring project success. He has extensive experience in designing adaptable and robust systems that meet both business objectives and user requirements. He is a results-driven problem-solver with exceptional analytical and communication skills and a steadfast commitment to ongoing learning and career advancement."
     },
     {
       "name": "Gautam Sharma",
       "title": "Technical Architect at LTIMindtree | Ex-Policybazaar | Ex-CarDekho",
-      "relationship": "Gautam managed Kishore Kumar directly",
+      "relationship": "Gautam managed Kishore K Sharma directly",
       "date": "April 19, 2023",
       "content": "A skilled software developer with a keen interest in constructing efficient, creative, and user-friendly applications. Knowledgeable in various programming languages and frameworks, with a specific specialization in Full stack development. Dedicated to continuous education and professional advancement, keeping current with the most recent industry developments and finest practices. A team player who collaborates well, providing exceptional work and exceeding client expectations."
     },
     {
       "name": "Kundan Kumar Sharma",
       "title": "Senior QA Automation Engineer at Wizni | Cypress, Selenium & Java | AI & LLM Testing (RAG/MCP) | CI/CD & Docker | Remote | Ex-Cognizant",
-      "relationship": "Kundan Kumar worked with Kishore Kumar but on different teams",
+      "relationship": "Kundan Kumar worked with Kishore K Sharma but on different teams",
       "date": "April 19, 2023",
       "content": "He's very enthusiastic and motivated. He always keep learning in order to be a better version of himself. He has indepth knowledge of JavaScript and its framework like React, Angular and Node. He even has knowledge of mobile app development using React Native. Apart from these, he's very cool person."
     },
     {
       "name": "Manish Dhoundiyal",
       "title": "Product Manager || Product Development || Technology || Fintech || Edtech || E-commerce",
-      "relationship": "Manish was senior to Kishore Kumar but didn't manage Kishore Kumar directly",
+      "relationship": "Manish was senior to Kishore K Sharma but didn't manage Kishore K Sharma directly",
       "date": "April 19, 2023",
       "content": "He possesses both a strong work ethic and strategic thinking abilities, making him a smart and reliable team member. Additionally, I must commend his exceptional leadership skills, which were particularly impressive to me during our time working together."
     },
     {
       "name": "Shailendra Singh",
       "title": "Software Engineering",
-      "relationship": "Shailendra was senior to Kishore Kumar but didn't manage Kishore Kumar directly",
+      "relationship": "Shailendra was senior to Kishore K Sharma but didn't manage Kishore K Sharma directly",
       "date": "April 13, 2023",
       "content": "Genuine person with sound technical skills, a true team player and hungry for learning new technical skills."
     },
     {
       "name": "Pragyan deep Gogoi",
       "title": "Full Stack Developer | Angular | Nodejs | Express | PostgreSQL | AWS",
-      "relationship": "Pragyan deep worked with Kishore Kumar on the same team",
+      "relationship": "Pragyan deep worked with Kishore K Sharma on the same team",
       "date": "April 13, 2023",
       "content": "I have worked with kishore kumar and I would definitely like to say he is an asset to any team. He is not only a hard working guy but also a smart worker too. It will be incomplete to define him without praising his leadership skills. That was the thing I loved the most about him when I used to work with him."
     },
     {
       "name": "Jiaul Haque",
       "title": "Full Stack Developer | Java (Spring Boot) | Node.js (Express)",
-      "relationship": "Jiaul worked with Kishore Kumar on the same team",
+      "relationship": "Jiaul worked with Kishore K Sharma on the same team",
       "date": "October 10, 2021",
       "content": "I have learnt many things under you. I like your way of teaching and how to think about logics. I'm very lucky having mentor like you. You are a hard working boy..."
     }

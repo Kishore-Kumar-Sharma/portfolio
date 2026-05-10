@@ -81,7 +81,7 @@ export function Contact() {
           </Reveal>
           <Reveal delay={0.08}>
             <p className="mt-6 max-w-[44ch] text-body-lg text-muted-foreground text-pretty">
-              If you&apos;re hiring a senior full-stack engineer, looking for someone who can own a feature end-to-end, or building a product that needs both depth and delivery — I&apos;d like to hear about it.
+              If you&apos;re hiring a lead full stack engineer, looking for someone who can own a feature end-to-end, or building a product that needs both depth and delivery — I&apos;d like to hear about it.
             </p>
           </Reveal>
 
@@ -91,7 +91,7 @@ export function Contact() {
                 <dt className="text-muted-foreground w-24 shrink-0">linkedin</dt>
                 <dd>
                   <a href={personal.linkedin} target="_blank" rel="noopener noreferrer" className="text-foreground hover:text-accent transition-colors">
-                    /in/kishore-kumar-sharma
+                    /in/kishore-k-sharma
                   </a>
                 </dd>
               </div>

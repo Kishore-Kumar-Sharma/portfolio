@@ -57,7 +57,7 @@ export default async function WorkPage(props: Props) {
     "@type": "Article",
     headline: work.title,
     description: work.summary,
-    author: { "@type": "Person", name: "Kishore Kumar Sharma", url: siteConfig.baseUrl },
+    author: { "@type": "Person", name: "Kishore K Sharma", url: siteConfig.baseUrl },
     datePublished: `${work.startDate}-01`,
     url,
     keywords: work.stack.join(", "),

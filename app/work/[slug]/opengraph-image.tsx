@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { loadWorkMeta } from "@/lib/work";
 
 export const runtime = "nodejs";
-export const alt = "Case study by Kishore Kumar Sharma";
+export const alt = "Case study by Kishore K Sharma";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -60,7 +60,7 @@ export default async function WorkOG({ params }: { params: { slug: string } }) {
             <span style={{ width: 8, height: 8, borderRadius: 4, background: accent }} />
             {work.domain} · case study
           </span>
-          <span>kishore-kumar-sharma.dev/work</span>
+          <span>kishorek.dev/work</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", maxWidth: 1040 }}>
