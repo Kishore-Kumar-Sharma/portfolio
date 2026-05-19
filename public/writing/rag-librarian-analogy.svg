@@ -1,0 +1,85 @@
+<svg viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t-rag-lib">
+  <title id="t-rag-lib">The librarian analogy: with and without RAG</title>
+  <style>
+    .text{fill:#1a1a24;font-family:Inter,system-ui,sans-serif;font-size:13px}
+    .label{fill:#5c5c66;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .mono{fill:#1a1a24;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px}
+    .acc{fill:#6028d9;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px}
+    .danger{fill:#c14545;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .s{stroke:#1a1a24;fill:none;stroke-width:1.25}
+    .sm{stroke:#b3b3bd;fill:none;stroke-width:1;stroke-dasharray:4 4}
+    .a{stroke:#6028d9;fill:none;stroke-width:1.5}
+    .dg{stroke:#c14545;fill:none;stroke-width:1.25}
+    .fa{fill:#6028d9}
+    .fd{fill:#c14545}
+    .fs{fill:#f5f1e6}
+    @media (prefers-color-scheme: dark){
+      .text{fill:#e8e4d8}.label{fill:#9c9ca6}.mono{fill:#e8e4d8}.acc{fill:#b89be8}.danger{fill:#d97a7a}
+      .s{stroke:#e8e4d8}.sm{stroke:#4a4a55}.a{stroke:#b89be8}.dg{stroke:#d97a7a}
+      .fa{fill:#b89be8}.fd{fill:#d97a7a}.fs{fill:#1a1a24}
+    }
+  </style>
+
+  <text x="40" y="36" class="label">SAME QUESTION · TWO LIBRARIANS · TWO ANSWERS</text>
+
+  <!-- LEFT: Without RAG -->
+  <text x="200" y="74" text-anchor="middle" class="danger">WITHOUT RAG · GUESSES FROM MEMORY</text>
+
+  <!-- User -->
+  <circle cx="80" cy="130" r="20" class="s"/>
+  <text x="80" y="170" text-anchor="middle" class="label">USER</text>
+
+  <!-- Question bubble -->
+  <rect x="110" y="108" width="170" height="44" rx="4" class="s"/>
+  <text x="120" y="128" class="text">"What's our refund</text>
+  <text x="120" y="144" class="text">policy?"</text>
+
+  <!-- Librarian (model) -->
+  <circle cx="320" cy="130" r="22" class="s"/>
+  <text x="320" y="135" text-anchor="middle" class="mono">LLM</text>
+  <text x="320" y="170" text-anchor="middle" class="label">FROM MEMORY</text>
+
+  <!-- Wrong answer bubble -->
+  <rect x="40" y="200" width="360" height="60" rx="4" class="dg"/>
+  <text x="60" y="222" class="danger">×× ANSWER (MADE UP)</text>
+  <text x="60" y="242" class="text">"You can return within 90 days for full refund."</text>
+  <text x="60" y="258" class="danger">→ NOT YOUR ACTUAL POLICY · HALLUCINATION</text>
+
+  <!-- Divider -->
+  <line x1="410" y1="60" x2="410" y2="320" class="sm"/>
+
+  <!-- RIGHT: With RAG -->
+  <text x="600" y="74" text-anchor="middle" class="acc">WITH RAG · LOOKS IT UP FIRST</text>
+
+  <!-- User -->
+  <circle cx="450" cy="130" r="20" class="s"/>
+  <text x="450" y="170" text-anchor="middle" class="label">USER</text>
+
+  <!-- Question bubble -->
+  <rect x="480" y="108" width="170" height="44" rx="4" class="s"/>
+  <text x="490" y="128" class="text">"What's our refund</text>
+  <text x="490" y="144" class="text">policy?"</text>
+
+  <!-- Librarian walks to shelf -->
+  <circle cx="690" cy="130" r="22" class="s"/>
+  <text x="690" y="135" text-anchor="middle" class="mono">LLM</text>
+  <text x="690" y="170" text-anchor="middle" class="label">WITH BOOK</text>
+
+  <!-- Bookshelf icon -->
+  <rect x="660" y="80" width="60" height="32" rx="2" class="fs"/>
+  <rect x="660" y="80" width="60" height="32" rx="2" class="a"/>
+  <line x1="670" y1="80" x2="670" y2="112" class="a"/>
+  <line x1="680" y1="80" x2="680" y2="112" class="a"/>
+  <line x1="700" y1="80" x2="700" y2="112" class="a"/>
+  <line x1="710" y1="80" x2="710" y2="112" class="a"/>
+  <text x="690" y="74" text-anchor="middle" class="label">SHELF</text>
+
+  <!-- Right answer bubble -->
+  <rect x="420" y="200" width="360" height="60" rx="4" class="a"/>
+  <text x="440" y="222" class="acc">✓ ANSWER (FROM HANDBOOK)</text>
+  <text x="440" y="242" class="text">"30 days from purchase, unused, original packaging."</text>
+  <text x="440" y="258" class="acc">→ MATCHES YOUR ACTUAL POLICY</text>
+
+  <text x="400" y="306" text-anchor="middle" class="acc">RAG = LET THE MODEL LOOK THINGS UP BEFORE ANSWERING</text>
+  <text x="400" y="324" text-anchor="middle" class="label">YOUR DOCUMENTS BECOME THE HANDBOOK ON THE SHELF</text>
+</svg>

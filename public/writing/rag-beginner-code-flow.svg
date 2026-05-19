@@ -1,0 +1,112 @@
+<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t-rag-code">
+  <title id="t-rag-code">How the Python code connects: setup path and query path</title>
+  <style>
+    .text{fill:#1a1a24;font-family:Inter,system-ui,sans-serif;font-size:13px}
+    .label{fill:#5c5c66;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .mono{fill:#1a1a24;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px}
+    .acc{fill:#6028d9;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px}
+    .danger{fill:#c14545;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .s{stroke:#1a1a24;fill:none;stroke-width:1.25}
+    .sm{stroke:#b3b3bd;fill:none;stroke-width:1;stroke-dasharray:4 4}
+    .a{stroke:#6028d9;fill:none;stroke-width:1.5}
+    .dg{stroke:#c14545;fill:none;stroke-width:1.25}
+    .fa{fill:#6028d9}
+    .fd{fill:#c14545}
+    .fs{fill:#f5f1e6}
+    @media (prefers-color-scheme: dark){
+      .text{fill:#e8e4d8}.label{fill:#9c9ca6}.mono{fill:#e8e4d8}.acc{fill:#b89be8}.danger{fill:#d97a7a}
+      .s{stroke:#e8e4d8}.sm{stroke:#4a4a55}.a{stroke:#b89be8}.dg{stroke:#d97a7a}
+      .fa{fill:#b89be8}.fd{fill:#d97a7a}.fs{fill:#1a1a24}
+    }
+  </style>
+
+  <text x="40" y="36" class="label">THE 50-LINE PYTHON EXAMPLE · TWO PATHS THROUGH THE SAME DATABASE</text>
+
+  <!-- SETUP PATH (top) -->
+  <text x="40" y="74" class="acc">SETUP PATH · RUN ONCE</text>
+  <line x1="40" y1="82" x2="200" y2="82" class="a"/>
+
+  <!-- 3 FAQ documents -->
+  <rect x="40" y="100" width="120" height="36" rx="3" class="s"/>
+  <text x="100" y="123" text-anchor="middle" class="mono">faq[0] returns</text>
+
+  <rect x="40" y="142" width="120" height="36" rx="3" class="s"/>
+  <text x="100" y="165" text-anchor="middle" class="mono">faq[1] shipping</text>
+
+  <rect x="40" y="184" width="120" height="36" rx="3" class="s"/>
+  <text x="100" y="207" text-anchor="middle" class="mono">faq[2] payment</text>
+
+  <!-- arrow to embed() -->
+  <line x1="160" y1="160" x2="220" y2="160" class="a"/>
+  <polygon points="220,160 210,155 210,165" class="fa"/>
+
+  <!-- embed() function -->
+  <rect x="220" y="138" width="130" height="44" rx="4" class="fs"/>
+  <rect x="220" y="138" width="130" height="44" rx="4" class="a"/>
+  <text x="285" y="158" text-anchor="middle" class="acc">embed()</text>
+  <text x="285" y="174" text-anchor="middle" class="label">OPENAI EMBED API</text>
+
+  <!-- arrow to ChromaDB -->
+  <line x1="350" y1="160" x2="420" y2="160" class="a"/>
+  <polygon points="420,160 410,155 410,165" class="fa"/>
+
+  <!-- ChromaDB (central) -->
+  <rect x="420" y="100" width="180" height="120" rx="4" class="s"/>
+  <text x="510" y="124" text-anchor="middle" class="acc">CHROMADB</text>
+  <text x="510" y="142" text-anchor="middle" class="label">VECTOR DATABASE</text>
+  <line x1="440" y1="152" x2="580" y2="152" class="sm"/>
+  <text x="440" y="172" class="mono">faq-0: [0.12, ...]</text>
+  <text x="440" y="190" class="mono">faq-1: [0.45, ...]</text>
+  <text x="440" y="208" class="mono">faq-2: [0.78, ...]</text>
+
+  <!-- divider -->
+  <line x1="40" y1="246" x2="760" y2="246" class="sm"/>
+
+  <!-- QUERY PATH (bottom) -->
+  <text x="40" y="272" class="acc">QUERY PATH · RUN ON EVERY QUESTION</text>
+  <line x1="40" y1="280" x2="280" y2="280" class="a"/>
+
+  <!-- user question -->
+  <rect x="40" y="296" width="160" height="40" rx="4" class="s"/>
+  <text x="120" y="312" text-anchor="middle" class="mono">"how long to return?"</text>
+  <text x="120" y="328" text-anchor="middle" class="label">USER QUESTION</text>
+
+  <!-- arrow to embed() -->
+  <line x1="200" y1="316" x2="220" y2="316" class="a"/>
+  <polygon points="220,316 210,311 210,321" class="fa"/>
+
+  <!-- embed() again -->
+  <rect x="220" y="294" width="130" height="44" rx="4" class="fs"/>
+  <rect x="220" y="294" width="130" height="44" rx="4" class="a"/>
+  <text x="285" y="314" text-anchor="middle" class="acc">embed()</text>
+  <text x="285" y="330" text-anchor="middle" class="label">SAME MODEL!</text>
+
+  <!-- arrow up to ChromaDB query -->
+  <line x1="350" y1="316" x2="380" y2="316" class="a"/>
+  <line x1="380" y1="316" x2="380" y2="245" class="a"/>
+  <line x1="380" y1="245" x2="420" y2="220" class="a"/>
+  <polygon points="420,220 410,222 412,232" class="fa"/>
+
+  <!-- arrow down from ChromaDB returning chunks -->
+  <line x1="600" y1="200" x2="640" y2="200" class="a"/>
+  <line x1="640" y1="200" x2="640" y2="316" class="a"/>
+  <line x1="640" y1="316" x2="620" y2="316" class="a"/>
+  <polygon points="620,316 630,311 630,321" class="fa"/>
+  <text x="610" y="248" text-anchor="middle" class="label">TOP 2 CHUNKS</text>
+
+  <!-- prompt builder + GPT -->
+  <rect x="460" y="294" width="160" height="44" rx="4" class="fs"/>
+  <rect x="460" y="294" width="160" height="44" rx="4" class="a"/>
+  <text x="540" y="314" text-anchor="middle" class="acc">prompt + GPT</text>
+  <text x="540" y="330" text-anchor="middle" class="label">"ANSWER FROM DOCS"</text>
+
+  <!-- arrow to answer -->
+  <line x1="660" y1="316" x2="690" y2="316" class="a"/>
+  <polygon points="690,316 680,311 680,321" class="fa"/>
+
+  <!-- answer -->
+  <rect x="690" y="296" width="80" height="40" rx="4" class="s"/>
+  <text x="730" y="320" text-anchor="middle" class="acc">ANSWER</text>
+
+  <text x="400" y="378" text-anchor="middle" class="label">SAME embed() ON BOTH PATHS · OTHERWISE NUMBERS DON'T MATCH</text>
+</svg>
