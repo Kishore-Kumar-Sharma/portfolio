@@ -1,0 +1,86 @@
+<svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t-rag-pipe">
+  <title id="t-rag-pipe">Five RAG pipeline stages — four are ETL, one is the model</title>
+  <style>
+    .text{fill:#1a1a24;font-family:Inter,system-ui,sans-serif;font-size:13px}
+    .label{fill:#5c5c66;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .mono{fill:#1a1a24;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px}
+    .acc{fill:#6028d9;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px}
+    .danger{fill:#c14545;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .s{stroke:#1a1a24;fill:none;stroke-width:1.25}
+    .sm{stroke:#b3b3bd;fill:none;stroke-width:1;stroke-dasharray:4 4}
+    .a{stroke:#6028d9;fill:none;stroke-width:1.5}
+    .dg{stroke:#c14545;fill:none;stroke-width:1.25}
+    .fa{fill:#6028d9}
+    .fd{fill:#c14545}
+    .fs{fill:#f5f1e6}
+    @media (prefers-color-scheme: dark){
+      .text{fill:#e8e4d8}.label{fill:#9c9ca6}.mono{fill:#e8e4d8}.acc{fill:#b89be8}.danger{fill:#d97a7a}
+      .s{stroke:#e8e4d8}.sm{stroke:#4a4a55}.a{stroke:#b89be8}.dg{stroke:#d97a7a}
+      .fa{fill:#b89be8}.fd{fill:#d97a7a}.fs{fill:#1a1a24}
+    }
+  </style>
+
+  <text x="40" y="36" class="label">FOUR ETL STAGES · ONE MODEL CALL · SPEND TIME ACCORDINGLY</text>
+
+  <!-- Stage 1: Ingest -->
+  <rect x="30" y="80" width="130" height="80" rx="4" class="s"/>
+  <text x="95" y="106" text-anchor="middle" class="acc">01 · INGEST</text>
+  <text x="95" y="126" text-anchor="middle" class="text">pull docs</text>
+  <text x="95" y="142" text-anchor="middle" class="text">handle updates</text>
+  <text x="95" y="158" text-anchor="middle" class="label">SCHEDULED OR EVENT</text>
+
+  <line x1="160" y1="120" x2="180" y2="120" class="a"/>
+  <polygon points="180,120 170,115 170,125" class="fa"/>
+
+  <!-- Stage 2: Chunk -->
+  <rect x="180" y="80" width="130" height="80" rx="4" class="s"/>
+  <text x="245" y="106" text-anchor="middle" class="acc">02 · CHUNK</text>
+  <text x="245" y="126" text-anchor="middle" class="text">structure-aware</text>
+  <text x="245" y="142" text-anchor="middle" class="text">not size-only</text>
+  <text x="245" y="158" text-anchor="middle" class="label">SECTION + METADATA</text>
+
+  <line x1="310" y1="120" x2="330" y2="120" class="a"/>
+  <polygon points="330,120 320,115 320,125" class="fa"/>
+
+  <!-- Stage 3: Embed -->
+  <rect x="330" y="80" width="130" height="80" rx="4" class="s"/>
+  <text x="395" y="106" text-anchor="middle" class="acc">03 · EMBED</text>
+  <text x="395" y="126" text-anchor="middle" class="text">vector + chunk</text>
+  <text x="395" y="142" text-anchor="middle" class="text">+ acl + ts</text>
+  <text x="395" y="158" text-anchor="middle" class="label">FROZEN INTERFACE</text>
+
+  <line x1="460" y1="120" x2="480" y2="120" class="a"/>
+  <polygon points="480,120 470,115 470,125" class="fa"/>
+
+  <!-- Stage 4: Retrieve -->
+  <rect x="480" y="80" width="130" height="80" rx="4" class="s"/>
+  <text x="545" y="106" text-anchor="middle" class="acc">04 · RETRIEVE</text>
+  <text x="545" y="126" text-anchor="middle" class="text">hybrid + filter</text>
+  <text x="545" y="142" text-anchor="middle" class="text">rerank + dedupe</text>
+  <text x="545" y="158" text-anchor="middle" class="label">QUALITY LIVES HERE</text>
+
+  <line x1="610" y1="120" x2="630" y2="120" class="a"/>
+  <polygon points="630,120 620,115 620,125" class="fa"/>
+
+  <!-- Stage 5: Generate (highlighted differently) -->
+  <rect x="630" y="80" width="130" height="80" rx="4" class="fs"/>
+  <rect x="630" y="80" width="130" height="80" rx="4" class="a"/>
+  <text x="695" y="106" text-anchor="middle" class="acc">05 · GENERATE</text>
+  <text x="695" y="126" text-anchor="middle" class="text">model + chunks</text>
+  <text x="695" y="142" text-anchor="middle" class="text">+ "say IDK"</text>
+  <text x="695" y="158" text-anchor="middle" class="label">SMALLEST PIECE</text>
+
+  <!-- Effort breakdown -->
+  <line x1="40" y1="190" x2="760" y2="190" class="sm"/>
+  <text x="40" y="216" class="label">WHERE THE ENGINEERING ACTUALLY LIVES</text>
+
+  <rect x="40" y="226" width="576" height="20" rx="3" class="a"/>
+  <rect x="40" y="226" width="576" height="20" rx="3" class="fs"/>
+  <rect x="40" y="226" width="576" height="20" rx="3" class="a" fill="none"/>
+  <text x="50" y="240" class="acc">ETL · 80% OF THE WORK · 80% OF THE QUALITY DIFFERENTIAL</text>
+
+  <rect x="620" y="226" width="140" height="20" rx="3" class="s"/>
+  <text x="690" y="240" text-anchor="middle" class="mono">MODEL · 20%</text>
+
+  <text x="400" y="284" text-anchor="middle" class="label">A MEDIOCRE MODEL WITH GREAT RETRIEVAL BEATS THE INVERSE · EVERY TIME</text>
+</svg>

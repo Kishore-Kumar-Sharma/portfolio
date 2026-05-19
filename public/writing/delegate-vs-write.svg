@@ -1,0 +1,70 @@
+<svg viewBox="0 0 800 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t-delegate">
+  <title id="t-delegate">Delegate-vs-write decision: verification cost vs writing cost</title>
+  <style>
+    .text{fill:#1a1a24;font-family:Inter,system-ui,sans-serif;font-size:13px}
+    .label{fill:#5c5c66;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .mono{fill:#1a1a24;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px}
+    .acc{fill:#6028d9;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px}
+    .danger{fill:#c14545;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .s{stroke:#1a1a24;fill:none;stroke-width:1.25}
+    .sm{stroke:#b3b3bd;fill:none;stroke-width:1;stroke-dasharray:4 4}
+    .a{stroke:#6028d9;fill:none;stroke-width:1.5}
+    .dg{stroke:#c14545;fill:none;stroke-width:1.25}
+    .fa{fill:#6028d9}
+    .fd{fill:#c14545}
+    .fs{fill:#f5f1e6}
+    @media (prefers-color-scheme: dark){
+      .text{fill:#e8e4d8}.label{fill:#9c9ca6}.mono{fill:#e8e4d8}.acc{fill:#b89be8}.danger{fill:#d97a7a}
+      .s{stroke:#e8e4d8}.sm{stroke:#4a4a55}.a{stroke:#b89be8}.dg{stroke:#d97a7a}
+      .fa{fill:#b89be8}.fd{fill:#d97a7a}.fs{fill:#1a1a24}
+    }
+  </style>
+
+  <text x="40" y="36" class="label">THE DECISION IS NOT HARD-VS-EASY · IT IS VERIFICATION COST</text>
+
+  <!-- Axes -->
+  <line x1="120" y1="320" x2="720" y2="320" class="s"/>
+  <line x1="120" y1="80" x2="120" y2="320" class="s"/>
+
+  <!-- Y axis label -->
+  <text x="60" y="100" class="label">VERIFY</text>
+  <text x="60" y="116" class="label">COST</text>
+  <text x="60" y="316" class="label">LOW</text>
+  <text x="60" y="92" class="label">HIGH</text>
+
+  <!-- X axis label -->
+  <text x="120" y="345" class="label">LOW                                                           HIGH</text>
+  <text x="400" y="362" text-anchor="middle" class="label">WRITE COST →</text>
+
+  <!-- Quadrant dividers -->
+  <line x1="420" y1="80" x2="420" y2="320" class="sm"/>
+  <line x1="120" y1="200" x2="720" y2="200" class="sm"/>
+
+  <!-- Q1 top-left: high-verify, low-write -> WRITE YOURSELF -->
+  <text x="270" y="100" text-anchor="middle" class="danger">WRITE YOURSELF</text>
+  <text x="270" y="118" text-anchor="middle" class="label">SLOW TO VERIFY · FAST TO WRITE</text>
+  <text x="270" y="148" text-anchor="middle" class="text">security boundaries</text>
+  <text x="270" y="166" text-anchor="middle" class="text">data migrations</text>
+  <text x="270" y="184" text-anchor="middle" class="text">unfamiliar domains</text>
+
+  <!-- Q2 top-right: high-verify, high-write -> DELEGATE WITH HEAVY REVIEW -->
+  <text x="570" y="100" text-anchor="middle" class="acc">DELEGATE · CLOSE WATCH</text>
+  <text x="570" y="118" text-anchor="middle" class="label">SLOW EITHER WAY · PARALLELISE</text>
+  <text x="570" y="148" text-anchor="middle" class="text">cross-cutting refactors</text>
+  <text x="570" y="166" text-anchor="middle" class="text">multi-file investigations</text>
+  <text x="570" y="184" text-anchor="middle" class="text">large boilerplate features</text>
+
+  <!-- Q3 bottom-left: low-verify, low-write -> SKIP -->
+  <text x="270" y="222" text-anchor="middle" class="label">EITHER WORKS</text>
+  <text x="270" y="240" text-anchor="middle" class="label">TINY · DOESN'T MATTER</text>
+  <text x="270" y="270" text-anchor="middle" class="text">single-line tweaks</text>
+  <text x="270" y="288" text-anchor="middle" class="text">renames in one file</text>
+  <text x="270" y="306" text-anchor="middle" class="text">obvious typos</text>
+
+  <!-- Q4 bottom-right: low-verify, high-write -> DELEGATE FREELY -->
+  <text x="570" y="222" text-anchor="middle" class="acc">DELEGATE FREELY</text>
+  <text x="570" y="240" text-anchor="middle" class="label">CHEAP TO VERIFY · COSTLY TO WRITE</text>
+  <text x="570" y="270" text-anchor="middle" class="text">mechanical refactors</text>
+  <text x="570" y="288" text-anchor="middle" class="text">test scaffolding</text>
+  <text x="570" y="306" text-anchor="middle" class="text">type-level work</text>
+</svg>

@@ -1,0 +1,58 @@
+<svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t-brief">
+  <title id="t-brief">Anatomy of a brief that produces shippable work</title>
+  <style>
+    .text{fill:#1a1a24;font-family:Inter,system-ui,sans-serif;font-size:13px}
+    .label{fill:#5c5c66;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .mono{fill:#1a1a24;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px}
+    .acc{fill:#6028d9;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px}
+    .danger{fill:#c14545;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .s{stroke:#1a1a24;fill:none;stroke-width:1.25}
+    .sm{stroke:#b3b3bd;fill:none;stroke-width:1;stroke-dasharray:4 4}
+    .a{stroke:#6028d9;fill:none;stroke-width:1.5}
+    .dg{stroke:#c14545;fill:none;stroke-width:1.25}
+    .fa{fill:#6028d9}
+    .fd{fill:#c14545}
+    .fs{fill:#f5f1e6}
+    @media (prefers-color-scheme: dark){
+      .text{fill:#e8e4d8}.label{fill:#9c9ca6}.mono{fill:#e8e4d8}.acc{fill:#b89be8}.danger{fill:#d97a7a}
+      .s{stroke:#e8e4d8}.sm{stroke:#4a4a55}.a{stroke:#b89be8}.dg{stroke:#d97a7a}
+      .fa{fill:#b89be8}.fd{fill:#d97a7a}.fs{fill:#1a1a24}
+    }
+  </style>
+
+  <text x="40" y="36" class="label">FOUR THINGS IN EVERY BRIEF THAT WORKS</text>
+
+  <!-- Slot 1: Goal -->
+  <rect x="40" y="64" width="32" height="32" rx="3" class="s"/>
+  <text x="56" y="84" text-anchor="middle" class="acc">01</text>
+  <text x="84" y="84" class="acc">state the goal · not the steps</text>
+  <text x="84" y="100" class="label">"USE A TOKEN BUCKET" BEATS "GO TO LINE 42 AND…"</text>
+  <text x="84" y="118" class="text">Locking the agent into the wrong steps wastes the run.</text>
+
+  <line x1="40" y1="136" x2="760" y2="136" class="sm"/>
+
+  <!-- Slot 2: Ruled out -->
+  <rect x="40" y="148" width="32" height="32" rx="3" class="s"/>
+  <text x="56" y="168" text-anchor="middle" class="acc">02</text>
+  <text x="84" y="168" class="acc">list what you ruled out</text>
+  <text x="84" y="184" class="label">"I TRIED REDIS EXPIRE, RACE CONDITION, WANT LUA"</text>
+  <text x="84" y="202" class="text">Without it, the agent suggests the option you already discarded.</text>
+
+  <line x1="40" y1="220" x2="760" y2="220" class="sm"/>
+
+  <!-- Slot 3: Constraints -->
+  <rect x="40" y="232" width="32" height="32" rx="3" class="s"/>
+  <text x="56" y="252" text-anchor="middle" class="acc">03</text>
+  <text x="84" y="252" class="acc">name hidden constraints</text>
+  <text x="84" y="268" class="label">"CAN'T ADD A DB CALL · HOT PATH" · "LAMBDA 256 MB"</text>
+  <text x="84" y="286" class="text">Constraints the agent can't see in the code are violated first.</text>
+
+  <line x1="40" y1="304" x2="760" y2="304" class="sm"/>
+
+  <!-- Slot 4: Stuck policy -->
+  <rect x="40" y="316" width="32" height="32" rx="3" class="fs"/>
+  <rect x="40" y="316" width="32" height="32" rx="3" class="a"/>
+  <text x="56" y="336" text-anchor="middle" class="acc">04</text>
+  <text x="84" y="336" class="acc">tell it what to do when stuck</text>
+  <text x="84" y="352" class="label">"STOP AND ASK · DON'T GUESS AT A PATH"</text>
+</svg>

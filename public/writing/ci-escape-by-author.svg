@@ -1,0 +1,77 @@
+<svg viewBox="0 0 800 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t-ci-escape">
+  <title id="t-ci-escape">Defect-escape rate by author type — month 1 vs month 3 after evaluation layer</title>
+  <style>
+    .text{fill:#1a1a24;font-family:Inter,system-ui,sans-serif;font-size:13px}
+    .label{fill:#5c5c66;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .mono{fill:#1a1a24;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px}
+    .acc{fill:#6028d9;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px}
+    .danger{fill:#c14545;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .s{stroke:#1a1a24;fill:none;stroke-width:1.25}
+    .sm{stroke:#b3b3bd;fill:none;stroke-width:1;stroke-dasharray:4 4}
+    .a{stroke:#6028d9;fill:none;stroke-width:1.5}
+    .dg{stroke:#c14545;fill:none;stroke-width:1.25}
+    .fa{fill:#6028d9}
+    .fd{fill:#c14545}
+    .fs{fill:#f5f1e6}
+    @media (prefers-color-scheme: dark){
+      .text{fill:#e8e4d8}.label{fill:#9c9ca6}.mono{fill:#e8e4d8}.acc{fill:#b89be8}.danger{fill:#d97a7a}
+      .s{stroke:#e8e4d8}.sm{stroke:#4a4a55}.a{stroke:#b89be8}.dg{stroke:#d97a7a}
+      .fa{fill:#b89be8}.fd{fill:#d97a7a}.fs{fill:#1a1a24}
+    }
+  </style>
+
+  <text x="40" y="36" class="label">THE METRIC THAT TELLS YOU WHETHER THE EVALUATION LAYER IS WORKING</text>
+
+  <!-- Y-axis -->
+  <line x1="120" y1="80" x2="120" y2="280" class="s"/>
+  <line x1="120" y1="280" x2="720" y2="280" class="s"/>
+
+  <text x="60" y="90" class="label">ESCAPE</text>
+  <text x="60" y="104" class="label">RATE %</text>
+  <text x="100" y="86" text-anchor="end" class="label">8</text>
+  <text x="100" y="136" text-anchor="end" class="label">6</text>
+  <text x="100" y="186" text-anchor="end" class="label">4</text>
+  <text x="100" y="236" text-anchor="end" class="label">2</text>
+  <text x="100" y="284" text-anchor="end" class="label">0</text>
+
+  <!-- Gridlines -->
+  <line x1="120" y1="86" x2="720" y2="86" class="sm"/>
+  <line x1="120" y1="136" x2="720" y2="136" class="sm"/>
+  <line x1="120" y1="186" x2="720" y2="186" class="sm"/>
+  <line x1="120" y1="236" x2="720" y2="236" class="sm"/>
+
+  <!-- Group 1: Human-only · month 1: 2.0%, month 3: 2.0% -->
+  <text x="200" y="304" text-anchor="middle" class="label">HUMAN-ONLY</text>
+  <rect x="150" y="230" width="40" height="50" class="s" fill="none"/>
+  <text x="170" y="222" text-anchor="middle" class="label">2.0</text>
+  <rect x="195" y="230" width="40" height="50" class="a" fill="none"/>
+  <text x="215" y="222" text-anchor="middle" class="acc">2.0</text>
+
+  <!-- Group 2: Agent-assisted · month 1: 4.5%, month 3: 2.5% -->
+  <text x="370" y="304" text-anchor="middle" class="label">AGENT-ASSISTED</text>
+  <rect x="320" y="167" width="40" height="113" class="s" fill="none"/>
+  <text x="340" y="160" text-anchor="middle" class="label">4.5</text>
+  <rect x="365" y="217" width="40" height="63" class="a" fill="none"/>
+  <text x="385" y="210" text-anchor="middle" class="acc">2.5</text>
+
+  <!-- Group 3: Agent-primary · month 1: 7.0%, month 3: 3.2% -->
+  <text x="540" y="304" text-anchor="middle" class="label">AGENT-PRIMARY</text>
+  <rect x="490" y="105" width="40" height="175" class="dg" fill="none"/>
+  <text x="510" y="98" text-anchor="middle" class="danger">7.0</text>
+  <rect x="535" y="200" width="40" height="80" class="a" fill="none"/>
+  <text x="555" y="193" text-anchor="middle" class="acc">3.2</text>
+
+  <!-- Legend -->
+  <rect x="610" y="100" width="14" height="14" class="dg" fill="none"/>
+  <text x="630" y="112" class="label">MONTH 1</text>
+  <rect x="610" y="120" width="14" height="14" class="a" fill="none"/>
+  <text x="630" y="132" class="acc">MONTH 3</text>
+
+  <text x="610" y="160" class="text">Convergence is the</text>
+  <text x="610" y="178" class="text">signal. Flat or rising</text>
+  <text x="610" y="196" class="text">means your rules</text>
+  <text x="610" y="214" class="text">aren't catching what</text>
+  <text x="610" y="232" class="text">actually escapes.</text>
+
+  <text x="400" y="346" text-anchor="middle" class="label">TRACK BY AUTHOR TYPE · CONVERGENCE = WORKING · DIVERGENCE = TUNE RULES</text>
+</svg>

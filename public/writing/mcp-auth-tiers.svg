@@ -1,0 +1,69 @@
+<svg viewBox="0 0 800 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="t-mcp-auth">
+  <title id="t-mcp-auth">Three MCP auth patterns, by tenancy and risk</title>
+  <style>
+    .text{fill:#1a1a24;font-family:Inter,system-ui,sans-serif;font-size:13px}
+    .label{fill:#5c5c66;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .mono{fill:#1a1a24;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11.5px}
+    .acc{fill:#6028d9;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px}
+    .danger{fill:#c14545;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.08em}
+    .s{stroke:#1a1a24;fill:none;stroke-width:1.25}
+    .sm{stroke:#b3b3bd;fill:none;stroke-width:1;stroke-dasharray:4 4}
+    .a{stroke:#6028d9;fill:none;stroke-width:1.5}
+    .dg{stroke:#c14545;fill:none;stroke-width:1.25}
+    .fa{fill:#6028d9}
+    .fd{fill:#c14545}
+    .fs{fill:#f5f1e6}
+    @media (prefers-color-scheme: dark){
+      .text{fill:#e8e4d8}.label{fill:#9c9ca6}.mono{fill:#e8e4d8}.acc{fill:#b89be8}.danger{fill:#d97a7a}
+      .s{stroke:#e8e4d8}.sm{stroke:#4a4a55}.a{stroke:#b89be8}.dg{stroke:#d97a7a}
+      .fa{fill:#b89be8}.fd{fill:#d97a7a}.fs{fill:#1a1a24}
+    }
+  </style>
+
+  <text x="40" y="36" class="label">PICK BY TENANCY · NOT BY CONVENIENCE</text>
+
+  <!-- Header row labels -->
+  <text x="60" y="74" class="label">PATTERN</text>
+  <text x="270" y="74" class="label">TRUST BOUNDARY</text>
+  <text x="500" y="74" class="label">SAFE FOR</text>
+  <text x="700" y="74" class="label">DON'T USE FOR</text>
+
+  <!-- Row 1: No auth -->
+  <rect x="40" y="86" width="200" height="60" rx="4" class="s"/>
+  <text x="60" y="110" class="mono">01 · no auth</text>
+  <text x="60" y="128" class="label">STDIO SUBPROCESS</text>
+
+  <text x="270" y="118" class="text">LOCAL MACHINE</text>
+
+  <text x="500" y="110" class="text">personal dev tools,</text>
+  <text x="500" y="128" class="text">single-user CLIs</text>
+
+  <text x="700" y="118" class="danger">ANY NETWORK REACH</text>
+
+  <!-- Row 2: Static key -->
+  <rect x="40" y="158" width="200" height="60" rx="4" class="s"/>
+  <text x="60" y="182" class="mono">02 · static key</text>
+  <text x="60" y="200" class="label">BEARER TOKEN · HTTP</text>
+
+  <text x="270" y="190" class="text">PER-DEPLOYMENT TOKEN</text>
+
+  <text x="500" y="182" class="text">single-tenant servers,</text>
+  <text x="500" y="200" class="text">narrow scope, short rotation</text>
+
+  <text x="700" y="190" class="danger">SHARED MULTI-USER</text>
+
+  <!-- Row 3: OAuth 2.1 -->
+  <rect x="40" y="230" width="200" height="60" rx="4" class="fs"/>
+  <rect x="40" y="230" width="200" height="60" rx="4" class="a"/>
+  <text x="60" y="254" class="acc">03 · oauth 2.1 + pkce</text>
+  <text x="60" y="272" class="label">PER-USER · AUDITABLE</text>
+
+  <text x="270" y="262" class="text">PER-USER PERMISSIONS</text>
+
+  <text x="500" y="254" class="acc">shared remote servers,</text>
+  <text x="500" y="272" class="acc">anything multi-tenant</text>
+
+  <text x="700" y="262" class="text">LOCAL SUBPROCESSES</text>
+
+  <text x="400" y="320" text-anchor="middle" class="label">SHARED + STATIC KEY = "THE MCP KEY DID IT" · NEVER BUILD THIS</text>
+</svg>
