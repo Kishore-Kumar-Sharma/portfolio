@@ -13,9 +13,10 @@ const DOMAIN_HEX: Record<string, string> = {
   govtech: "#D4756B",
 };
 
-export default async function WorkOG({ params }: { params: { slug: string } }) {
-  const work = loadWorkMeta(params.slug);
-  if (!work) {
+export default async function WorkOG({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const work = loadWorkMeta(slug);
+  if (!work || work.draft) {
     return new ImageResponse(
       (
         <div

@@ -25,7 +25,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   // Metadata only needs frontmatter — skip the markdown render.
   const work = loadWorkMeta(params.slug);
-  if (!work) return {};
+  if (!work || work.draft) return {};
   const url = `${siteConfig.baseUrl}/work/${work.slug}`;
   return {
     title: work.title,
@@ -48,7 +48,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function WorkPage(props: Props) {
   const params = await props.params;
   const work = await loadWork(params.slug);
-  if (!work) notFound();
+  if (!work || work.draft) notFound();
 
   const nonce = (await headers()).get("x-nonce") ?? undefined;
   const url = `${siteConfig.baseUrl}/work/${work.slug}`;

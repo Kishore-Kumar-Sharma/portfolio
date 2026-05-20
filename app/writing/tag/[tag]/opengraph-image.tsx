@@ -6,8 +6,9 @@ export const alt = "Writing tag — Kishore K Sharma";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function TagOG({ params }: { params: { tag: string } }) {
-  const slug = decodeURIComponent(params.tag);
+export default async function TagOG({ params }: { params: Promise<{ tag: string }> }) {
+  const { tag: rawTag } = await params;
+  const slug = decodeURIComponent(rawTag);
   const match = listTags().find((t) => tagSlug(t.tag) === slug);
   const tag = match?.tag ?? slug;
   const notes = match ? notesByTag(match.tag) : [];

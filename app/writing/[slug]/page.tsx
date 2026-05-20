@@ -8,6 +8,7 @@ import { categoryLabel } from "@/config/categories";
 import { ShareBar } from "@/components/notes/ShareBar";
 import { ReadingProgress } from "@/components/notes/ReadingProgress";
 import { AuthorCard } from "@/components/notes/AuthorCard";
+import { CopyAttribution } from "@/components/notes/CopyAttribution";
 import { safeJsonLd } from "@/lib/json-ld";
 import { siteConfig } from "@/config/site";
 
@@ -23,7 +24,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params;
   // Metadata only needs frontmatter — skip the markdown render.
   const note = loadNoteMeta(params.slug);
-  if (!note) return {};
+  // Drafts are not public — empty metadata so search engines don't pick up the
+  // title/description for an URL the page route below will 404.
+  if (!note || note.draft) return {};
   const url = `${siteConfig.baseUrl}/writing/${note.slug}`;
   const tags = note.tags ?? [];
   return {
@@ -34,7 +37,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     creator: "Kishore K Sharma",
     publisher: "Kishore K Sharma",
     category: tags[0],
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      // Expose a clean markdown source so AI crawlers / LLM agents can fetch
+      // the canonical text without scraping rendered HTML. Mirrors the
+      // llms.txt convention; the route returns text/markdown with frontmatter.
+      types: { "text/markdown": `${url}/llms.txt` },
+    },
     robots: {
       index: true,
       follow: true,
@@ -70,7 +79,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function NotePage(props: Props) {
   const params = await props.params;
   const note = await loadNote(params.slug);
-  if (!note) notFound();
+  if (!note || note.draft) notFound();
 
   const { prev, next } = relatedNotes(note.slug);
   const nonce = (await headers()).get("x-nonce") ?? undefined;
@@ -107,6 +116,19 @@ export default async function NotePage(props: Props) {
     wordCount: note.wordCount,
     timeRequired: `PT${note.readMin}M`,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    // Copyright signals — helpful for SEO, DMCA evidence, and AI training
+    // provenance. License intentionally restrictive; relax per-post via
+    // frontmatter later if you want some posts under CC-BY.
+    copyrightYear: Number(note.date.slice(0, 4)),
+    copyrightHolder: author,
+    copyrightNotice: `© ${note.date.slice(0, 4)} Kishore K Sharma. All rights reserved.`,
+    license: `${siteConfig.baseUrl}/terms`,
+    // Speakable hint for voice assistants / AI summarisers — points them at
+    // the title and lede paragraph rather than navigation chrome.
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "header p", "article p:first-of-type"],
+    },
   };
 
   const breadcrumbs = {
@@ -131,6 +153,7 @@ export default async function NotePage(props: Props) {
   return (
     <article className="min-h-screen pt-32 pb-24">
       <ReadingProgress />
+      <CopyAttribution url={url} author="Kishore K Sharma" />
       <script
         type="application/ld+json"
         nonce={nonce}

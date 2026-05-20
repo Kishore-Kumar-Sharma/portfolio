@@ -75,6 +75,12 @@ export const metadata: Metadata = {
   authors: [{ name: "Kishore K Sharma", url: baseUrl }],
   creator: "Kishore K Sharma",
   publisher: "Kishore K Sharma",
+  other: {
+    // Surfaces a copyright signal to crawlers and archive tools that read the
+    // legacy meta-name. Per-post copyrightNotice JSON-LD is the modern carrier;
+    // this is the broad-compatibility fallback.
+    copyright: `© ${new Date().getFullYear()} Kishore K Sharma. All rights reserved.`,
+  },
   robots: {
     index: true,
     follow: true,

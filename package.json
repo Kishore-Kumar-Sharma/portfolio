@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "[ \"$VERCEL_ENV\" = \"production\" ] && node scripts/indexnow.mjs || echo \"[indexnow] skipped (not production)\"",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",

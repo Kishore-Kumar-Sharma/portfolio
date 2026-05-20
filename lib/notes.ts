@@ -41,6 +41,11 @@ export interface Note extends NoteMeta {
 
 const NOTES_DIR = path.join(process.cwd(), "content", "notes");
 
+// Slug comes from URL params on dynamic routes — restrict to filename-safe
+// characters so a crafted slug (e.g. "..%2F..%2FREADME") can't escape NOTES_DIR
+// via path.join, which only collapses ".." segments without bounding the result.
+const SLUG_PATTERN = /^[a-zA-Z0-9_-]+$/;
+
 function countWords(text: string): number {
   return text.replace(/[^\w\s]/g, " ").split(/\s+/).filter(Boolean).length;
 }
@@ -50,6 +55,7 @@ function wordsPerMinute(text: string): number {
 }
 
 function readSource(slug: string): { fm: Partial<NoteFrontmatter>; content: string } | null {
+  if (!SLUG_PATTERN.test(slug)) return null;
   const mdPath = path.join(NOTES_DIR, `${slug}.md`);
   const mdxPath = path.join(NOTES_DIR, `${slug}.mdx`);
   const file = fs.existsSync(mdPath) ? mdPath : fs.existsSync(mdxPath) ? mdxPath : null;

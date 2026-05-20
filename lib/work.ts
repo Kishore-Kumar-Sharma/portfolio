@@ -34,7 +34,12 @@ export interface WorkCase extends WorkMeta {
 
 const WORK_DIR = path.join(process.cwd(), "content", "work");
 
+// Slug comes from URL params — see lib/notes.ts for rationale. Same constraint
+// here so a crafted work slug can't traverse out of WORK_DIR.
+const SLUG_PATTERN = /^[a-zA-Z0-9_-]+$/;
+
 function readSource(slug: string): { fm: Partial<WorkFrontmatter>; content: string } | null {
+  if (!SLUG_PATTERN.test(slug)) return null;
   const mdPath = path.join(WORK_DIR, `${slug}.md`);
   const mdxPath = path.join(WORK_DIR, `${slug}.mdx`);
   const file = fs.existsSync(mdPath) ? mdPath : fs.existsSync(mdxPath) ? mdxPath : null;

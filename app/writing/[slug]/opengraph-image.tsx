@@ -6,9 +6,12 @@ export const alt = "Note by Kishore K Sharma";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default async function NoteOG({ params }: { params: { slug: string } }) {
-  const note = loadNoteMeta(params.slug);
-  if (!note) {
+export default async function NoteOG({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const note = loadNoteMeta(slug);
+  // Drafts: render the same generic /writing fallback so the OG can't be used
+  // to confirm an unlisted draft's existence.
+  if (!note || note.draft) {
     // Fallback OG for unknown slugs
     return new ImageResponse(
       (
